@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  intelligence:
+    image: intelligence
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    build:
+      context: ./intelligence
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:8000"
+  objects:
+    image: objects
+    command: bash -c "python manage.py runserver 0.0.0.0:8100"
+    build:
+      context: ./objects
+      dockerfile: ./Dockerfile
+    ports:
+      - "8100:8100"
+  simulation:
+    image: simulation
+    command: bash -c "python manage.py runserver 0.0.0.0:8080"
+    build:
+      context: ./simulation
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:8080"
