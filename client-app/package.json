@@ -37,7 +37,7 @@
     "lint": "eslint --fix .",
     "pretty": "prettier --write .",
     "commit": "cz",
-    "postinstall": "husky install"
+    "prepare": "cd .. && husky install client-app/.husky"
   },
   "eslintConfig": {
     "extends": [
