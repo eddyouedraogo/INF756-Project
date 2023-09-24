@@ -1,0 +1,38 @@
+[
+    {
+        "model": "intelligence.intelligence",
+        "pk": 1,
+        "fields" : {
+            "label": "Très Intelligente",
+            "min_level": 8,
+            "max_level": 10
+        }
+    },
+    {
+        "model": "intelligence.intelligence",
+        "pk": 2,
+        "fields" : {
+            "label": "Moyennement Intelligente",
+            "min_level": 5,
+            "max_level": 7
+        }
+    },
+    {
+        "model": "intelligence.intelligence",
+        "pk": 3,
+        "fields" : {
+            "label": "Moyennement Intelligente",
+            "min_level": 0,
+            "max_level": 4
+        }
+    },
+    {
+        "model": "intelligence.intelligence",
+        "pk": 4,
+        "fields" : {
+            "label": "Souris Sournoise",
+            "min_level": 11,
+            "max_level": 11
+        }
+    }
+]

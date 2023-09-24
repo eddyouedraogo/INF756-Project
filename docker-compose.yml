@@ -1,9 +1,33 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - ./postgres-data:/var/lib/postgresql/data
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user-name@domain-name.com
+      PGADMIN_DEFAULT_PASSWORD: strong-password
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
   intelligence:
     image: intelligence
-    command: bash -c "python manage.py makemigrations intelligence && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py makemigrations intelligence && python manage.py migrate && python manage.py loaddata intelligence && python manage.py runserver 0.0.0.0:8000"
     build:
       context: ./intelligence
       dockerfile: ./Dockerfile
@@ -11,10 +35,11 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    restart: on-failure
 
   objects:
     image: objects
-    command: bash -c "python manage.py makemigrations objects && python manage.py migrate && python manage.py runserver 0.0.0.0:8100"
+    command: bash -c "python manage.py makemigrations objects && python manage.py migrate && python manage.py loaddata objects && python manage.py runserver 0.0.0.0:8100"
     build:
       context: ./objects
       dockerfile: ./Dockerfile
@@ -22,10 +47,11 @@ services:
       - "8100:8100"
     depends_on:
       - db
+    restart: on-failure
 
   simulation:
     image: simulation
-    command: bash -c "python manage.py makemigrations simulation && python manage.py migrate && python manage.py runserver 0.0.0.0:8080"
+    command: bash -c "python manage.py makemigrations simulation && python manage.py migrate && python manage.py loaddata rules && python manage.py runserver 0.0.0.0:8080"
     build:
       context: ./simulation
       dockerfile: ./Dockerfile
@@ -33,18 +59,9 @@ services:
       - "8080:8080"
     depends_on:
       - db
+    restart: on-failure
   
-  db:
-    image: postgres:14.1-alpine
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    ports:
-      - '5432:5432'
-    volumes: 
-      - db:/var/lib/postgresql/data
-
 volumes:
   db:
-    driver: local
+  local_pgdata:
+  pgadmin-data:

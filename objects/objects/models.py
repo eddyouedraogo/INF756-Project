@@ -7,8 +7,6 @@ class Objective(models.Model):
     effect_on_health = models.IntegerField()
     effect_on_mental = models.IntegerField()
     effect_on_intelligence = models.IntegerField()
-    room = models.ForeignKey('Room', on_delete=models.SET_NULL, null=True) # Many to One relationship; an objective has a room and a room has many objective
-
 class Room(models.Model):
     room_number = models.IntegerField()
     is_lab_entrance = models.BooleanField()
@@ -16,6 +14,9 @@ class Room(models.Model):
     available_exit = models.ForeignKey('self', on_delete=models.CASCADE)
     labyrinth = models.ForeignKey('Labyrinth', on_delete=models.CASCADE)
 
+class RoomObjective(models.Model):
+    objective_id = models.IntegerField()
+    room_id = models.IntegerField()
 class Labyrinth(models.Model):
     name = models.CharField(max_length=50)
     size = models.CharField(max_length=20)
