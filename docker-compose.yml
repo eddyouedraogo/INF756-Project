@@ -1,27 +1,50 @@
-version: '3.4'
+version: '3.8'
 
 services:
   intelligence:
     image: intelligence
-    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py makemigrations intelligence && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     build:
       context: ./intelligence
       dockerfile: ./Dockerfile
     ports:
       - "8000:8000"
+    depends_on:
+      - db
+
   objects:
     image: objects
-    command: bash -c "python manage.py runserver 0.0.0.0:8100"
+    command: bash -c "python manage.py makemigrations objects && python manage.py migrate && python manage.py runserver 0.0.0.0:8100"
     build:
       context: ./objects
       dockerfile: ./Dockerfile
     ports:
       - "8100:8100"
+    depends_on:
+      - db
+
   simulation:
     image: simulation
-    command: bash -c "python manage.py runserver 0.0.0.0:8080"
+    command: bash -c "python manage.py makemigrations simulation && python manage.py migrate && python manage.py runserver 0.0.0.0:8080"
     build:
       context: ./simulation
       dockerfile: ./Dockerfile
     ports:
       - "8080:8080"
+    depends_on:
+      - db
+  
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
+    driver: local
