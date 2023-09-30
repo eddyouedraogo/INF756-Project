@@ -4,9 +4,7 @@ from django.db import models
 class Objective(models.Model): 
     name = models.CharField(max_length=50)
     description = models.CharField()
-    effect_on_health = models.IntegerField()
-    effect_on_mental = models.IntegerField()
-    effect_on_intelligence = models.IntegerField()
+
 class Room(models.Model):
     room_number = models.IntegerField()
     is_lab_entrance = models.BooleanField()
@@ -17,6 +15,7 @@ class Room(models.Model):
 class RoomObjective(models.Model):
     objective_id = models.IntegerField()
     room_id = models.IntegerField()
+    
 class Labyrinth(models.Model):
     name = models.CharField(max_length=50)
     size = models.CharField(max_length=20)
@@ -31,5 +30,3 @@ class Mouse(models.Model):
 class Action(models.Model):
     name = models.CharField(max_length=50)
     intelligence_needed_to_perform = models.IntegerField()
-    effect_on_health = models.IntegerField()
-    effect_on_mental = models.IntegerField()

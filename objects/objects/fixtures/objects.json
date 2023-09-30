@@ -4,10 +4,7 @@
         "pk": 1,
         "fields" : {
             "name": "Cookie",
-            "description": "Cet objectif est très efficace car il augmente la santé de la souris si celle-ci n’est pas déjà au maximum, elle augmente le mental de la souris qui est heureuse après avoir bien mangé.",
-            "effect_on_health": 0,
-            "effect_on_mental": 0,
-            "effect_on_intelligence": 0
+            "description": "Cet objectif est très efficace car il augmente la santé de la souris si celle-ci n’est pas déjà au maximum, elle augmente le mental de la souris qui est heureuse après avoir bien mangé."
         }
     },
     {
@@ -15,10 +12,7 @@
         "pk": 2,
         "fields" : {
             "name": "Petit piège",
-            "description": "Cet objectif diminuera la santé et le mental de la souris. Les souris plus intelligentes arriveront peut-être à les éviter. ;)",
-            "effect_on_health": 0,
-            "effect_on_mental": 0,
-            "effect_on_intelligence": 0
+            "description": "Cet objectif diminuera la santé et le mental de la souris. Les souris plus intelligentes arriveront peut-être à les éviter. ;)"
         }
     },
     {
@@ -26,10 +20,7 @@
         "pk": 3,
         "fields" : {
             "name": "Potion Magique",
-            "description": "Cet objectif augmenterait toutes les facultés de la souris (mental, santé, et l'intelligence)",
-            "effect_on_health": 0,
-            "effect_on_mental": 0,
-            "effect_on_intelligence": 0
+            "description": "Cet objectif augmenterait toutes les facultés de la souris (mental, santé, et l'intelligence)"
         }
     },
     {
@@ -37,10 +28,7 @@
         "pk": 4,
         "fields" : {
             "name": "Monstre",
-            "description": "Diminue la santé mentale de la souris",
-            "effect_on_health": 0,
-            "effect_on_mental": 0,
-            "effect_on_intelligence": 0
+            "description": "Diminue la santé mentale de la souris"
         }
     },
     {
@@ -48,10 +36,15 @@
         "pk": 5,
         "fields" : {
             "name": "Piège mortel",
-            "description": "La souris meurt",
-            "effect_on_health": 0,
-            "effect_on_mental": 0,
-            "effect_on_intelligence": 0
+            "description": "La souris meurt"
+        }
+    },
+    {
+        "model": "objects.objective",
+        "pk": 6,
+        "fields" : {
+            "name": "Alcool",
+            "description": "Les attributs de la souris baissent"
         }
     },
     {
@@ -59,9 +52,7 @@
         "pk": 1,
         "fields" : {
             "name": "NORD",
-            "intelligence_needed_to_perform": 1,
-            "effect_on_health": 0,
-            "effect_on_mental": 0
+            "intelligence_needed_to_perform": 1
         }
     },
     {
@@ -69,9 +60,7 @@
         "pk": 2,
         "fields" : {
             "name": "SUD",
-            "intelligence_needed_to_perform": 1,
-            "effect_on_health": 0,
-            "effect_on_mental": 0
+            "intelligence_needed_to_perform": 1
         }
     },
     {
@@ -79,9 +68,7 @@
         "pk": 3,
         "fields" : {
             "name": "OUEST",
-            "intelligence_needed_to_perform": 1,
-            "effect_on_health": 0,
-            "effect_on_mental": 0
+            "intelligence_needed_to_perform": 1
         }
     },
     {
@@ -89,9 +76,7 @@
         "pk": 4,
         "fields" : {
             "name": "EST",
-            "intelligence_needed_to_perform": 1,
-            "effect_on_health": 0,
-            "effect_on_mental": 0
+            "intelligence_needed_to_perform": 1
         }
     },
     {
@@ -99,9 +84,7 @@
         "pk": 5,
         "fields" : {
             "name": "MANGER",
-            "intelligence_needed_to_perform": 5,
-            "effect_on_health": 0,
-            "effect_on_mental": 0
+            "intelligence_needed_to_perform": 5
         }
     },
     {
@@ -109,9 +92,7 @@
         "pk": 6,
         "fields" : {
             "name": "ENREGISTRER_VISITE",
-            "intelligence_needed_to_perform": 8,
-            "effect_on_health": 0,
-            "effect_on_mental": 0
+            "intelligence_needed_to_perform": 8
         }
     },
     {
@@ -119,9 +100,7 @@
         "pk": 7,
         "fields" : {
             "name": "CONNAITRE_ALENTOUR",
-            "intelligence_needed_to_perform": 8,
-            "effect_on_health": 0,
-            "effect_on_mental": 0
+            "intelligence_needed_to_perform": 8
         }
     }
 ]
