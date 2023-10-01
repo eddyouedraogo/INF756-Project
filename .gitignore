@@ -1,5 +1,6 @@
 docker-compose.debug.yml
 .vscode/
+.idea/
 intelligence/intelligence/__pycache__/
 objects/objects/__pycache__/
 simulation/simulation/__pycache__/
@@ -16,3 +17,4 @@ simulation/simulation/__pycache__/settings.cpython-39.pyc
 intelligence/intelligence/__pycache__/settings.cpython-39.pyc
 objects/objects/__pycache__/settings.cpython-39.pyc
 postgres-data/
+**/venv/
