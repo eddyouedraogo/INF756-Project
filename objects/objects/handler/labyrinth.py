@@ -1,4 +1,4 @@
-from objects.models import *
+from api.models import *
 
 def load_labyrinth(size):
     labyrinth = Labyrinth.objects.filter(size=size).first()
