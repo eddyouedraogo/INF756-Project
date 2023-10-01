@@ -22,5 +22,314 @@
             "name": "Ensemble TP",
             "description": "Cet ensemble de règles est celui donné dans l'ennoncé du TP"
         }
+    },
+    
+    {
+        "model": "simulation.ruleitem",
+        "pk": 1,
+        "fields": {
+            "name": "EFFET_PAS",
+            "description": "Lorsqu'une souris fait 4 pas son état physique baissera d'un nombre de point."
+        }
+    },
+    {
+        "model": "simulation.ruleitem",
+        "pk": 2,
+        "fields": {
+            "name": "EFFET_MANGER",
+            "description": "Lorsqu'une souris mange son état physique et mental augmente d'un nombre de point."
+        }
+    },
+    {
+        "model": "simulation.ruleitem",
+        "pk": 3,
+        "fields": {
+            "name": "EFFET_MONSTRE",
+            "description": "Lorsqu'une souris rencontre un monstre son état baissera d'un nombre de point."
+        }
+    },
+    {
+        "model": "simulation.ruleitem",
+        "pk": 4,
+        "fields": {
+            "name": "EFFET_POTION",
+            "description": "Lorsqu'une souris boit une potion son état physique, mental et intelligence augmente d'un nombre de point."
+        }
+    },
+    {
+        "model": "simulation.ruleitem",
+        "pk": 5,
+        "fields": {
+            "name": "EFFET_PETIT_PIEGE",
+            "description": "Lorsqu'une souris tombe dans un petit piège, l'état physique et mental de la souris baisse d'un nombre de point."
+        }
+    },
+    {
+        "model": "simulation.ruleitem",
+        "pk": 6,
+        "fields": {
+            "name": "EFFET_PIEGE_MORTEL",
+            "description": "Lorsqu'une souris tombe dans un piège mortel, elle meurt."
+        }
+    },
+    {
+        "model": "simulation.ruleitem",
+        "pk": 7,
+        "fields": {
+            "name": "EFFET_ALCOOL",
+            "description": "Lorsqu'une souris boit de l'alcool, tous ses attributs baisse d'un certain nombre de points."
+        }
+    },
+    {
+        "model": "simulation.ruleitem",
+        "pk": 8,
+        "fields": {
+            "name": "EFFET_SOURIS_COINCEE",
+            "description": "Lorsqu'une souris est coincée dans une pièce (n'envoie pas d'action ou essaye de passer dans une pièce dans laquelle elle n'a pas accès à cause d'un mur), son état mental baisse."
+        }
+    },
+    
+    {
+        "model": "simulation.actionruleitem",
+        "pk": 1,
+        "fields": {
+            "action": 1,
+            "ruleItem": 1,
+            "ruleSet": 1,
+            "effect_on_health": -0.25,
+            "effect_on_mental": 0,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.actionruleitem",
+        "pk": 2,
+        "fields": {
+            "action": 2,
+            "ruleItem": 1,
+            "ruleSet": 1,
+            "effect_on_health": -0.25,
+            "effect_on_mental": 0,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.actionruleitem",
+        "pk": 3,
+        "fields": {
+            "action": 3,
+            "ruleItem": 1,
+            "ruleSet": 1,
+            "effect_on_health": -0.25,
+            "effect_on_mental": 0,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.actionruleitem",
+        "pk": 4,
+        "fields": {
+            "action": 4,
+            "ruleItem": 1,
+            "ruleSet": 1,
+            "effect_on_health": -0.25,
+            "effect_on_mental": 0,
+            "effect_on_intelligence": 0
+        }
+    },
+    
+    {
+        "model": "simulation.actionruleitem",
+        "pk": 5,
+        "fields": {
+            "action": 1,
+            "ruleItem": 1,
+            "ruleSet": 2,
+            "effect_on_health": -0.50,
+            "effect_on_mental": 0,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.actionruleitem",
+        "pk": 6,
+        "fields": {
+            "action": 2,
+            "ruleItem": 1,
+            "ruleSet": 2,
+            "effect_on_health": -0.50,
+            "effect_on_mental": 0,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.actionruleitem",
+        "pk": 7,
+        "fields": {
+            "action": 3,
+            "ruleItem": 1,
+            "ruleSet": 2,
+            "effect_on_health": -0.50,
+            "effect_on_mental": 0,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.actionruleitem",
+        "pk": 8,
+        "fields": {
+            "action": 4,
+            "ruleItem": 1,
+            "ruleSet": 2,
+            "effect_on_health": -0.50,
+            "effect_on_mental": 0,
+            "effect_on_intelligence": 0
+        }
+    },
+
+    {
+        "model": "simulation.objectiveruleitem",
+        "pk": 1,
+        "fields": {
+            "objective": 1,
+            "ruleItem": 2,
+            "ruleSet": 1,
+            "effect_on_health": 3,
+            "effect_on_mental": 3,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.objectiveruleitem",
+        "pk": 2,
+        "fields": {
+            "objective": 4,
+            "ruleItem": 3,
+            "ruleSet": 1,
+            "effect_on_health": 0,
+            "effect_on_mental": 3,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.objectiveruleitem",
+        "pk": 3,
+        "fields": {
+            "objective": 3,
+            "ruleItem": 4,
+            "ruleSet": 1,
+            "effect_on_health": 10,
+            "effect_on_mental": 10,
+            "effect_on_intelligence": 10
+        }
+    },
+    {
+        "model": "simulation.objectiveruleitem",
+        "pk": 4,
+        "fields": {
+            "objective": 2,
+            "ruleItem": 5,
+            "ruleSet": 1,
+            "effect_on_health": -2,
+            "effect_on_mental": 0,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.objectiveruleitem",
+        "pk": 5,
+        "fields": {
+            "objective": 5,
+            "ruleItem": 6,
+            "ruleSet": 1,
+            "effect_on_health": -10,
+            "effect_on_mental": 0,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.objectiveruleitem",
+        "pk": 6,
+        "fields": {
+            "objective": 6,
+            "ruleItem": 7,
+            "ruleSet": 1,
+            "effect_on_health": -3,
+            "effect_on_mental": -3,
+            "effect_on_intelligence": -3
+        }
+    },
+    
+    {
+        "model": "simulation.objectiveruleitem",
+        "pk": 7,
+        "fields": {
+            "objective": 1,
+            "ruleItem": 2,
+            "ruleSet": 2,
+            "effect_on_health": 2,
+            "effect_on_mental": 2,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.objectiveruleitem",
+        "pk": 8,
+        "fields": {
+            "objective": 4,
+            "ruleItem": 3,
+            "ruleSet": 2,
+            "effect_on_health": 0,
+            "effect_on_mental": 5,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.objectiveruleitem",
+        "pk": 9,
+        "fields": {
+            "objective": 3,
+            "ruleItem": 4,
+            "ruleSet": 2,
+            "effect_on_health": 10,
+            "effect_on_mental": 10,
+            "effect_on_intelligence": 10
+        }
+    },
+    {
+        "model": "simulation.objectiveruleitem",
+        "pk": 10,
+        "fields": {
+            "objective": 2,
+            "ruleItem": 5,
+            "ruleSet": 2,
+            "effect_on_health": -4,
+            "effect_on_mental": 0,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.objectiveruleitem",
+        "pk": 11,
+        "fields": {
+            "objective": 5,
+            "ruleItem": 6,
+            "ruleSet": 2,
+            "effect_on_health": -10,
+            "effect_on_mental": 0,
+            "effect_on_intelligence": 0
+        }
+    },
+    {
+        "model": "simulation.objectiveruleitem",
+        "pk": 12,
+        "fields": {
+            "objective": 6,
+            "ruleItem": 7,
+            "ruleSet": 2,
+            "effect_on_health": -5,
+            "effect_on_mental": -5,
+            "effect_on_intelligence": -5
+        }
     }
 ]
