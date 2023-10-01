@@ -102,5 +102,282 @@
             "name": "CONNAITRE_ALENTOUR",
             "intelligence_needed_to_perform": 8
         }
+    },
+
+    
+    {
+        "model": "objects.room",
+        "pk": 1,
+        "fields" : {
+            "room_number": 1,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [2],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 2,
+        "fields" : {
+            "room_number": 2,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [1, 3],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 3,
+        "fields" : {
+            "room_number": 3,
+            "is_lab_entrance": true,
+            "is_lab_exit": false,
+            "available_exits": [2, 4],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 4,
+        "fields" : {
+            "room_number": 4,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [3, 5],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 5,
+        "fields" : {
+            "room_number": 5,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [4],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 6,
+        "fields" : {
+            "room_number": 6,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [7, 11],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 7,
+        "fields" : {
+            "room_number": 7,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [2, 6],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 8,
+        "fields" : {
+            "room_number": 8,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [13],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 9,
+        "fields" : {
+            "room_number": 9,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [10, 14],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 10,
+        "fields" : {
+            "room_number": 10,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [9, 15],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 11,
+        "fields" : {
+            "room_number": 11,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [6, 12],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 12,
+        "fields" : {
+            "room_number": 12,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [11, 13],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 13,
+        "fields" : {
+            "room_number": 13,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [8, 12, 14],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 14,
+        "fields" : {
+            "room_number": 14,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [9, 13],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 15,
+        "fields" : {
+            "room_number": 15,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [10, 20],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 16,
+        "fields" : {
+            "room_number": 16,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [11, 17],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 17,
+        "fields" : {
+            "room_number": 17,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [16, 22],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 18,
+        "fields" : {
+            "room_number": 18,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [19, 23],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 19,
+        "fields" : {
+            "room_number": 19,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [18, 24],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 20,
+        "fields" : {
+            "room_number": 20,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [15, 25],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 21,
+        "fields" : {
+            "room_number": 21,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [22],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 22,
+        "fields" : {
+            "room_number": 22,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [17, 21],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 23,
+        "fields" : {
+            "room_number": 23,
+            "is_lab_entrance": false,
+            "is_lab_exit": true,
+            "available_exits": [18],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 24,
+        "fields" : {
+            "room_number": 24,
+            "is_lab_entrance": false,
+            "is_lab_exit": true,
+            "available_exits": [19, 24],
+            "labyrinth": 1
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 25,
+        "fields" : {
+            "room_number": 25,
+            "is_lab_entrance": false,
+            "is_lab_exit": true,
+            "available_exits": [20, 24],
+            "labyrinth": 1
+        }
     }
 ]
