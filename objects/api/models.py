@@ -10,7 +10,7 @@ class Room(models.Model):
     room_number = models.IntegerField()
     is_lab_entrance = models.BooleanField()
     is_lab_exit = models.BooleanField()
-    available_exit = models.ForeignKey('self', on_delete=models.CASCADE)
+    available_exits = models.ManyToManyField('self')
     labyrinth = models.ForeignKey('Labyrinth', on_delete=models.CASCADE)
 
     class Meta:

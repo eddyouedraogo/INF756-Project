@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from .views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('ruleSet/', RuleSetView.as_view()),
+    path('ruleItem/', RuleItemView.as_view()),
+    path('actionRule/', ActionRuleItemtView.as_view()),
+    path('objectiveRule/', ObjectiveRuleItemtView.as_view()),
 ]

@@ -21,7 +21,7 @@
         "model": "intelligence.intelligence",
         "pk": 3,
         "fields" : {
-            "label": "Moyennement Intelligente",
+            "label": "Peu Intelligente",
             "min_level": 0,
             "max_level": 4
         }
