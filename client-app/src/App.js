@@ -1,7 +1,7 @@
-import AppLayout from './components/AppLayout';
+import ConfigurePage from './views/ConfigurePage';
 
 function App() {
-  return <AppLayout />;
+  return <ConfigurePage />;
 }
 
 export default App;
