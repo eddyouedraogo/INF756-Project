@@ -1,14 +1,13 @@
 import React from 'react';
 import {
   AppLayout,
-  Grid,
   ContentLayout,
   Container,
   Header,
   SpaceBetween
 } from '@cloudscape-design/components';
 
-export default function CustumLayout() {
+export default function CustumLayout({ children }) {
   return (
     <AppLayout
       content={
@@ -28,11 +27,7 @@ export default function CustumLayout() {
               </Header>
             }
           >
-            <Grid gridDefinition={[{ colspan: 4 }, { colspan: 4 }, { colspan: 4 }]}>
-              <div> </div>
-              <div> </div>
-              <div> </div>
-            </Grid>
+            {children}
           </Container>
         </ContentLayout>
       }
