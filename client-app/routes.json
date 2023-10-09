@@ -1,0 +1,4 @@
+{
+  "/api/v1/rules": "/rules",
+  "/api/v1/labyrinths": "/labyrinths"
+}
