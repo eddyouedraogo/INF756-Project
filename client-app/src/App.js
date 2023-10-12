@@ -1,10 +1,7 @@
+import ConfigurePage from './views/ConfigurePage';
+
 function App() {
-  const WELCOME_MESSAGE = 'Welcome to simulus';
-  return (
-    <div>
-      <h2>{WELCOME_MESSAGE}</h2>
-    </div>
-  );
+  return <ConfigurePage />;
 }
 
 export default App;
