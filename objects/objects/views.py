@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 from .models import *
-from .serializers import LabyrinthSerializer, RoomSerializer
+from .serializers import LabyrinthSerializer, RoomSerializer, ObjectiveSerializer
 from objects.handler.labyrinth import load_labyrinth
 
 
