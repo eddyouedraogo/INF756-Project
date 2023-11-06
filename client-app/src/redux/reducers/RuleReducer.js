@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchData } from '../actions/rules';
+import { fetchRuleData } from '../actions/rules';
 
 const initialState = {
   list: [],
@@ -9,7 +9,7 @@ const initialState = {
   error: null
 };
 
-const mouseSlice = createSlice({
+const ruleSlice = createSlice({
   name: 'rule',
   initialState,
   reducers: {
@@ -19,21 +19,21 @@ const mouseSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchData.pending, (state) => {
+      .addCase(fetchRuleData.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchData.fulfilled, (state, action) => {
+      .addCase(fetchRuleData.fulfilled, (state, action) => {
         state.loading = false;
         state.list = action.payload;
         state.error = null;
       })
-      .addCase(fetchData.rejected, (state, action) => {
+      .addCase(fetchRuleData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
   }
 });
 
-export const { setRule } = mouseSlice.actions;
+export const { setRule } = ruleSlice.actions;
 
-export default mouseSlice.reducer;
+export default ruleSlice.reducer;

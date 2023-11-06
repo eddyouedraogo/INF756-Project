@@ -7,9 +7,11 @@ import {
   SpaceBetween
 } from '@cloudscape-design/components';
 
-export default function CustumLayout({ children }) {
+export default function CustumLayout({ children, title, subtitle }) {
   return (
     <AppLayout
+      navigationHide
+      toolsHide
       content={
         <ContentLayout
           header={
@@ -22,8 +24,8 @@ export default function CustumLayout({ children }) {
         >
           <Container
             header={
-              <Header variant='h2' description='Configurer la simulation'>
-                Etape 1
+              <Header variant='h2' description={subtitle}>
+                {title}
               </Header>
             }
           >
