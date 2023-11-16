@@ -363,7 +363,7 @@
         "fields" : {
             "room_number": 24,
             "is_lab_entrance": false,
-            "is_lab_exit": true,
+            "is_lab_exit": false,
             "available_exits": [19, 24],
             "labyrinth": 1
         }
@@ -374,7 +374,7 @@
         "fields" : {
             "room_number": 25,
             "is_lab_entrance": false,
-            "is_lab_exit": true,
+            "is_lab_exit": false,
             "available_exits": [20, 24],
             "labyrinth": 1
         }

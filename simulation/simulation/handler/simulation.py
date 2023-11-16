@@ -19,7 +19,7 @@ def create_simulation(payload):
     }
 
     
-    visited_dfs = set()
+    visited_dfs = []
     queue_bfs = []
     queue_bfs_stupid = []
     visited_bfs = []
@@ -37,7 +37,7 @@ def create_simulation(payload):
 def dfs_intelligence(visited, labyrinth, room):
     if room.get("id") not in visited:
         print ("The mouse is currently in room ", room.get("id"))
-        visited.add(room.get("id"))
+        visited.append(room.get("id"))
 
         if room.get("is_lab_exit"):
             print("Mouse has reached the exit")
@@ -47,6 +47,10 @@ def dfs_intelligence(visited, labyrinth, room):
         print (f"Available Exists are {available_exits_ids}")
         available_exits = get_room_from_ids(available_exits_ids, labyrinth)
         
+        #Si la souris est dans une impasse il faut noter qu'elle est revenue en arriere
+        if len(available_exits_ids) == 1 and available_exits_ids[0] in visited:
+            visited.append(available_exits_ids[0])
+
         for next_room in available_exits:
             exit_found = dfs_intelligence(visited, labyrinth, next_room)
             if exit_found:
@@ -59,10 +63,10 @@ def bfs_intelligence(visited, labyrinth, room, queue):
     
     while (queue and not exit_found):     
         current_room = queue.pop(0) 
-        print (current_room, end = " ") 
+        # print (current_room, end = " ") 
         
         available_exits_ids = current_room.get("available_exits")
-        print (f"Available Exists are {available_exits_ids}")
+        # print (f"Available Exists are {available_exits_ids}")
         available_exits = get_room_from_ids(available_exits_ids, labyrinth)
 
         for next_room in available_exits:
@@ -73,8 +77,8 @@ def bfs_intelligence(visited, labyrinth, room, queue):
                 
                 if next_room.get("is_lab_exit"):
                     exit_found = True
-                    print("Mouse has reached the exit")
-                    break
+                    # print("Mouse has reached the exit")
+                    # break
 
 def bfs_stupid_mouse(visited, labyrinth, room, queue): 
     visited.append(room.get("id"))
@@ -83,10 +87,10 @@ def bfs_stupid_mouse(visited, labyrinth, room, queue):
     
     while (queue and not exit_found):     
         current_room = queue.pop(0) 
-        print (current_room, end = " ") 
+        # print (current_room, end = " ") 
         
         available_exits_ids = current_room.get("available_exits")
-        print (f"Available Exists are {available_exits_ids}")
+        # print (f"Available Exists are {available_exits_ids}")
         available_exits = get_room_from_ids(available_exits_ids, labyrinth)
 
         for next_room in available_exits:
@@ -95,7 +99,7 @@ def bfs_stupid_mouse(visited, labyrinth, room, queue):
                 
             if next_room.get("is_lab_exit"):
                 exit_found = True
-                print("Mouse has reached the exit")
+                # print("Mouse has reached the exit")
                 break
 
 def get_room_from_ids(ids, labyrinth):
