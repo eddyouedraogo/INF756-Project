@@ -101,84 +101,12 @@
             "effect_on_intelligence": 0
         }
     },
-    {
-        "model": "simulation.actionruleitem",
-        "pk": 2,
-        "fields": {
-            "action": 2,
-            "ruleItem": 1,
-            "ruleSet": 1,
-            "effect_on_health": -0.25,
-            "effect_on_mental": 0,
-            "effect_on_intelligence": 0
-        }
-    },
-    {
-        "model": "simulation.actionruleitem",
-        "pk": 3,
-        "fields": {
-            "action": 3,
-            "ruleItem": 1,
-            "ruleSet": 1,
-            "effect_on_health": -0.25,
-            "effect_on_mental": 0,
-            "effect_on_intelligence": 0
-        }
-    },
-    {
-        "model": "simulation.actionruleitem",
-        "pk": 4,
-        "fields": {
-            "action": 4,
-            "ruleItem": 1,
-            "ruleSet": 1,
-            "effect_on_health": -0.25,
-            "effect_on_mental": 0,
-            "effect_on_intelligence": 0
-        }
-    },
     
     {
         "model": "simulation.actionruleitem",
         "pk": 5,
         "fields": {
             "action": 1,
-            "ruleItem": 1,
-            "ruleSet": 2,
-            "effect_on_health": -0.50,
-            "effect_on_mental": 0,
-            "effect_on_intelligence": 0
-        }
-    },
-    {
-        "model": "simulation.actionruleitem",
-        "pk": 6,
-        "fields": {
-            "action": 2,
-            "ruleItem": 1,
-            "ruleSet": 2,
-            "effect_on_health": -0.50,
-            "effect_on_mental": 0,
-            "effect_on_intelligence": 0
-        }
-    },
-    {
-        "model": "simulation.actionruleitem",
-        "pk": 7,
-        "fields": {
-            "action": 3,
-            "ruleItem": 1,
-            "ruleSet": 2,
-            "effect_on_health": -0.50,
-            "effect_on_mental": 0,
-            "effect_on_intelligence": 0
-        }
-    },
-    {
-        "model": "simulation.actionruleitem",
-        "pk": 8,
-        "fields": {
-            "action": 4,
             "ruleItem": 1,
             "ruleSet": 2,
             "effect_on_health": -0.50,

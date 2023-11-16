@@ -5,5 +5,5 @@ def load_labyrinth(size):
     if labyrinth == None:
         return
 
-    lab_rooms = Room.objects.filter(labyrinth=labyrinth)
+    lab_rooms = Room.objects.filter(labyrinth=labyrinth).order_by('-is_lab_entrance')
     return lab_rooms

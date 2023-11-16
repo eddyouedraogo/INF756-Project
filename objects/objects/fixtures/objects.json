@@ -51,7 +51,7 @@
         "model": "objects.action",
         "pk": 1,
         "fields" : {
-            "name": "NORD",
+            "name": "MARCHER",
             "intelligence_needed_to_perform": 1
         }
     },
@@ -59,37 +59,13 @@
         "model": "objects.action",
         "pk": 2,
         "fields" : {
-            "name": "SUD",
-            "intelligence_needed_to_perform": 1
-        }
-    },
-    {
-        "model": "objects.action",
-        "pk": 3,
-        "fields" : {
-            "name": "OUEST",
-            "intelligence_needed_to_perform": 1
-        }
-    },
-    {
-        "model": "objects.action",
-        "pk": 4,
-        "fields" : {
-            "name": "EST",
-            "intelligence_needed_to_perform": 1
-        }
-    },
-    {
-        "model": "objects.action",
-        "pk": 5,
-        "fields" : {
             "name": "MANGER",
             "intelligence_needed_to_perform": 5
         }
     },
     {
         "model": "objects.action",
-        "pk": 6,
+        "pk": 3,
         "fields" : {
             "name": "ENREGISTRER_VISITE",
             "intelligence_needed_to_perform": 8
@@ -97,13 +73,36 @@
     },
     {
         "model": "objects.action",
-        "pk": 7,
+        "pk": 4,
         "fields" : {
             "name": "CONNAITRE_ALENTOUR",
             "intelligence_needed_to_perform": 8
         }
     },
-
+    {
+        "model": "objects.labyrinth",
+        "pk": 1,
+        "fields" : {
+            "name": "Small Maze",
+            "size": "Petit"
+        }
+    },
+    {
+        "model": "objects.labyrinth",
+        "pk": 2,
+        "fields" : {
+            "name": "Average Maze",
+            "size": "Moyen"
+        }
+    },
+    {
+        "model": "objects.labyrinth",
+        "pk": 3,
+        "fields" : {
+            "name": "Big Maze",
+            "size": "Grand"
+        }
+    },
     
     {
         "model": "objects.room",
