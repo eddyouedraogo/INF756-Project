@@ -25,4 +25,5 @@ urlpatterns = [
     path('actionRule/', ActionRuleItemtView.as_view()),
     path('objectiveRule/', ObjectiveRuleItemtView.as_view()),
     path('simulation/', SimulationView.as_view()),
+    path('ruleSetItems/', RuleSetAndItemView.as_view()),
 ]

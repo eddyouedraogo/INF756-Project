@@ -4,7 +4,7 @@ from ..models import *
 from ..serializers import *
 
 def get_labyrinth(data): 
-    url = f"http://objects:8100/labyrinth?labyrinth_size={data}"
+    url = f"http://objects:8100/labyrinth?labyrinth_id={data}"
     result = requests.get(url)
 
     return handle_http_response(result)

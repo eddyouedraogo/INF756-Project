@@ -21,17 +21,13 @@ class ObjectiveRuleItemSerializer(serializers.ModelSerializer):
         model = ObjectiveRuleItem
         fields = '__all__'
 
-class MouseSerializer(serializers.Serializer):
-    intelligence = serializers.CharField(required=True)
+class MousesIntelligenceSerializer(serializers.Serializer):
+    intelligence_id = serializers.IntegerField(required=True)
+    number_of_mouses = serializers.IntegerField(required=True)
 
-class LabyrinthSerializer(serializers.Serializer):
-    name = serializers.CharField(required=True)
-
-class RuleSetSerializer(serializers.Serializer):
-    id = serializers.IntegerField(required=True)
 
 class CreateSimulationSerializer(serializers.Serializer):
-    mouses = serializers.ListField(child=MouseSerializer())
-    labyrinth = LabyrinthSerializer(required=True)
-    ruleSet = RuleSetSerializer(required=True)
+    mouses_intelligence = serializers.ListField(child=MousesIntelligenceSerializer())
+    labyrinth_id = serializers.IntegerField(required=True)
+    ruleSet_id = serializers.IntegerField(required=True)
 

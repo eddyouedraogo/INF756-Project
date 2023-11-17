@@ -3,13 +3,13 @@ import sys
 
 def create_simulation(payload):
     print("******** Creating Simulation ******")
-    labyrinth_info = payload.get("labyrinth")
-    rule_set_id = payload.get("ruleSet")
+    labyrinth_id = payload.get("labyrinth_id")
+    rule_set_id = payload.get("ruleSet_id")
 
-    labyrinth = get_labyrinth(labyrinth_info.get("name"))
+    labyrinth = get_labyrinth(labyrinth_id)
     intelligences = get_intelligences()
-    action_rules = get_action_rule_for_rule_set(rule_set_id.get("id"))
-    objective_rules = get_objective_rule_for_rule_set(rule_set_id.get("id"))
+    action_rules = get_action_rule_for_rule_set(rule_set_id)
+    objective_rules = get_objective_rule_for_rule_set(rule_set_id)
 
     ret = {
         "labyrinth": labyrinth,
@@ -79,6 +79,39 @@ def bfs_intelligence(visited, labyrinth, room, queue):
                     exit_found = True
                     # print("Mouse has reached the exit")
                     # break
+
+def random_search(visited, labyrinth, room, queue, previous_room, exit_found):
+    if room.get("id") not in visited:
+        visited.append(room.get("id"))
+        queue.append(room)
+    
+        print (f"Visited {visited}")
+        print (f"Queued {queue}")
+        print (f"Previous Room {previous_room}")
+        while(not exit_found):
+            
+            print (f"Currently visiting {room}")
+
+            available_exits_ids = room.get("available_exits")
+            print (f"Available Exists are {available_exits_ids}")
+            available_exits = get_room_from_ids(available_exits_ids, labyrinth)
+
+            if(len(available_exits) > 1):
+                for next_room in available_exits: 
+                    print (f"Visiting next {next_room}")
+                    random_search(visited, labyrinth, next_room, queue, room, next_room.get("is_lab_exit"))
+            elif previous_room:
+                print (f"No exit ! Going back to previous room next {previous_room}")
+                available_exits_ids = previous_room.get("available_exits")
+
+                #Get available exits except the ones we already visited 
+                available_exits_to_be_visited = list(set(visited) - list(available_exits_ids))
+            
+                # print (f"Available Exists are {available_exits_ids}")
+                available_exits = get_room_from_ids(available_exits_to_be_visited, labyrinth)
+                next_room = available_exits.pop(0)
+                random_search(visited, labyrinth, next_room, queue, previous_room, next_room.get("is_lab_exit"))
+
 
 def bfs_stupid_mouse(visited, labyrinth, room, queue): 
     visited.append(room.get("id"))
