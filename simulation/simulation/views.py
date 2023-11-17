@@ -79,16 +79,3 @@ def get_rule_setItems(ruleItems, ruleSetId):
             }
             ret.append(data)
     return ret
-
-def get_rule_item(ruleItems, id): 
-    for ruleItem in ruleItems:
-        if ruleItem.id == id:
-            return {
-                "id": ruleItem.id,
-                "description" : ruleItem.description
-            }
-        
-def get_rule_from_data(data, ruleName):
-    for rule in data: 
-        if ruleName in rule.keys():
-            return rule
