@@ -16,7 +16,7 @@ class RoomSerializer(serializers.ModelSerializer):
         model = Room
         fields = '__all__'
 
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        representation['labyrinth'] = LabyrinthSerializer(instance.labyrinth).data
-        return representation
+    # def to_representation(self, instance):
+    #     representation = super().to_representation(instance)
+    #     representation['labyrinth'] = LabyrinthSerializer(instance.labyrinth).data
+    #     return representation
