@@ -22,7 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', include('routers')), Change this router to reflect the one below
     path('objective/', ObjectiveView.as_view()),
-    path('labyrinth/', LabyrinthView.as_view())
+    path('labyrinth/', LabyrinthView.as_view()),
+    path('roomObjective/', RoomObjectiveView.as_view())
 ]
 
 

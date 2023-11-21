@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 from .models import *
-from .serializers import LabyrinthSerializer, RoomSerializer, ObjectiveSerializer
+from .serializers import *
 from objects.handler.labyrinth import *
 
 
@@ -62,3 +62,16 @@ class LabyrinthView(APIView):
             
             serializer = RoomSerializer(rooms, many=True)
             return Response(serializer.data)
+
+class RoomObjectiveView(APIView):
+    def get(self, request):
+        labyrinth_id = request.query_params.get('labyrinth_id')
+        if labyrinth_id:
+            rooms = load_labyrinth_for_id(labyrinth_id)
+            room_ids = [room.id for room in rooms]
+            rooms_objectives = RoomObjective.objects.filter(room_id__in=room_ids)
+        else:
+            rooms_objectives = RoomObjective.objects.all().values()
+
+        serializer = RoomObjectiveSerializer(rooms_objectives, many=True)
+        return Response(list(serializer.data))
