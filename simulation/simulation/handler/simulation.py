@@ -15,26 +15,37 @@ def create_simulation(payload):
     
     visited_dfs = []
     queue_bfs = []
-    queue_bfs_stupid = []
     visited_bfs = []
-    visited_bfs_stupid = []
+    visited_dfs_smart_mouse = []
+    visited_bfs_smart_mouse = []
+    queue_bfs_smart_mouse = []
 
-    parents = [labyrinth[0]]
-    dfs_intelligence(visited_dfs, labyrinth, labyrinth[0], labyrinth[0], parents, False)
+    lab_entrance = labyrinth[0]
+    parents = [lab_entrance]
     
-    # path = bfs_intelligence(visited_bfs, labyrinth, labyrinth[0], queue_bfs)
-    # route = [room.get("room_number") for room in path]
+    dfs_intelligence(
+        visited=visited_dfs, 
+        labyrinth=labyrinth, 
+        room=lab_entrance, 
+        parent=lab_entrance, 
+        parents=parents, 
+        exit_found=False
+        )
+    
+    bfs_intelligence(visited_bfs, labyrinth, lab_entrance, queue_bfs)
 
-    # bfs_stupid_mouse(visited_bfs_stupid, labyrinth, labyrinth[0], queue_bfs_stupid)
+    route = bfs_intelligence_smart_mouse(labyrinth, lab_entrance)
+    path = [room.get("room_number") for room in route]
 
     return {
         "visited_dfs": visited_dfs,
-        # "visited_bfs": route,
-        "bfs_stupid_mouse": visited_bfs_stupid,
+        "visited_bfs": visited_bfs,
+        "visited_dfs_smart_mouse": visited_dfs_smart_mouse,
+        "visited_bfs_smart_mouse": path,
         }
 
 def dfs_intelligence(visited, labyrinth, room, parent, parents, exit_found):
-    # register_parent(parents, parent, room)
+    print("***************************** BEGINNING DFS ************************")
 
     if (room.get("room_number") not in visited):
         parents.append(parent)
@@ -66,18 +77,6 @@ def dfs_intelligence(visited, labyrinth, room, parent, parents, exit_found):
                 return exit_found
     return exit_found
 
-def register_parent(parents, parent, room):
-    if parents and parent:
-        last_parent = parents[-1]
-        last_parent_id = last_parent.get("room_number")
-        current_room_id = room.get("room_number")
-        if last_parent_id != current_room_id:
-            print(f"adding parent {last_parent_id} to room {current_room_id}")
-            parents.append(parent)
-    elif parent and not parents: 
-        parents.append(parent)
-
-
 def dfs_backtrack(visited, labyrinth, parents): 
     current_parent = parents.pop()
 
@@ -103,82 +102,78 @@ def dfs_backtrack(visited, labyrinth, parents):
                 print("Unvisited room is", next_room.get("room_number") )
                 return next_room
 
+# def dfs_backtrack(visited, labyrinth, parents): 
+
+#     for room in reversed(parents):
+#         visited.append(room.get("room_number"))
+#         if room.get("available_exits") not in visited:
+#             return room
 
 def bfs_intelligence(visited, labyrinth, room, queue): 
-    visited.append(room.get("room_number"))
-    queue.append([room])
-    exit_found = False
-    
-    while (queue and not exit_found):     
-        path = queue.pop(0) 
-        current_room = path[-1]
-        if current_room.get("is_lab_exit"):
-            exit_found = True
-            return path
-        
-        available_exits_ids = current_room.get("available_exits")
-        available_exits = get_room_from_number(available_exits_ids, labyrinth)
-
-        for next_room in available_exits:
-            new_path = list(path)
-            new_path.append(next_room)
-            queue.append(new_path)
-
-
-def random_search(visited, labyrinth, room, queue, previous_room, exit_found):
-    if room.get("id") not in visited:
-        visited.append(room.get("room_number"))
-        queue.append(room)
-    
-        print (f"Visited {visited}")
-        print (f"Queued {queue}")
-        print (f"Previous Room {previous_room}")
-        while(not exit_found):
-            
-            print (f"Currently visiting {room}")
-
-            available_exits_ids = room.get("available_exits")
-            print (f"Available Exists are {available_exits_ids}")
-            available_exits = get_room_from_number(available_exits_ids, labyrinth)
-
-            if(len(available_exits) > 1):
-                for next_room in available_exits: 
-                    print (f"Visiting next {next_room}")
-                    random_search(visited, labyrinth, next_room, queue, room, next_room.get("is_lab_exit"))
-            elif previous_room:
-                print (f"No exit ! Going back to previous room next {previous_room}")
-                available_exits_ids = previous_room.get("available_exits")
-
-                #Get available exits except the ones we already visited 
-                available_exits_to_be_visited = list(set(visited) - list(available_exits_ids))
-            
-                # print (f"Available Exists are {available_exits_ids}")
-                available_exits = get_room_from_number(available_exits_to_be_visited, labyrinth)
-                next_room = available_exits.pop(0)
-                random_search(visited, labyrinth, next_room, queue, previous_room, next_room.get("is_lab_exit"))
-
-
-def bfs_stupid_mouse(visited, labyrinth, room, queue): 
-    visited.append(room.get("room_number"))
     queue.append(room)
     exit_found = False
     
     while (queue and not exit_found):     
         current_room = queue.pop(0) 
-        # print (current_room, end = " ") 
+        print (current_room, end = " ") 
         
         available_exits_ids = current_room.get("available_exits")
-        # print (f"Available Exists are {available_exits_ids}")
+        print (f"Available Exists are {available_exits_ids}")
+        available_exits = get_room_from_number(available_exits_ids, labyrinth)
+        
+        #On retrace le chemin pour aller visiter les autres noeud 
+        if visited:
+            bfs_backtracking(visited, current_room.get("room_number"))
+
+        for next_room in available_exits:
+            print("Next Room is ", next_room.get("room_number"))
+            if next_room.get("room_number") not in visited:
+                visited.append(current_room.get("room_number"))
+                visited.append(next_room.get("room_number"))
+                queue.append(next_room)
+                
+                if next_room.get("is_lab_exit"):
+                    exit_found = True
+                    print("Mouse has reached the exit")
+                    break
+
+def bfs_backtracking(visited, backtrack_to_room):
+    path = visited
+    last_element = visited[-1]
+
+    for room in reversed(path):
+        if room == backtrack_to_room:
+            return visited
+        elif room == last_element:
+            continue
+        else:
+            visited.append(room)
+
+def bfs_intelligence_smart_mouse(labyrinth, room):
+    queue = []
+    queue.append([room])
+    
+    visited = []
+    visited.append(room.get("room_number"))
+
+    while queue:
+        path = queue.pop(0) 
+        current_room = path[-1]
+        if current_room.get("is_lab_exit"):
+            return path
+        
+
+        available_exits_ids = current_room.get("available_exits")
+        print (f"Available Exists are {available_exits_ids}")
         available_exits = get_room_from_number(available_exits_ids, labyrinth)
 
         for next_room in available_exits:
-            visited.append(next_room.get("room_number"))
-            queue.append(next_room)
-                
-            if next_room.get("is_lab_exit"):
-                exit_found = True
-                # print("Mouse has reached the exit")
-                break
+            if next_room.get("room_number") not in visited:
+                visited.append(next_room.get("room_number"))
+                new_path = list(path)
+                new_path.append(next_room)
+                queue.append(new_path)
+
 
 def get_room_from_number(rom_numbers, labyrinth):
     rooms = []
