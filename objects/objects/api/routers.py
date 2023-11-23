@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, find_labyrinths, find_labyrinth_rooms
+from objects.views import index, find_labyrinths, find_labyrinth_rooms
 from .swagger import schema_view
 
 BASE_URL: str = 'api/v1/'

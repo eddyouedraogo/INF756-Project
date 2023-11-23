@@ -4,8 +4,8 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 from .models import *
-from .serializers import LabyrinthSerializer, RoomSerializer
-from objects.handler.labyrinth import load_labyrinth
+from .serializers import *
+from objects.handler.labyrinth import *
 
 
 
@@ -42,15 +42,36 @@ class LabyrinthView(APIView):
     def get(self, request, format=None):
 
         labyrinth_size = request.query_params.get('labyrinth_size')
+        labyrinth_id = request.query_params.get('labyrinth_id')
 
-        if labyrinth_size == None: 
+        if labyrinth_size == None and labyrinth_id == None: 
             objectives = Labyrinth.objects.all()
             serializer  = LabyrinthSerializer(objectives, many=True)
             return Response(serializer.data)
-        else:
-            rooms=load_labyrinth(labyrinth_size)
+        elif labyrinth_size:
+            rooms=load_labyrinth_for_size(labyrinth_size)
             if rooms == None: 
                 raise NotFound(detail=f"{labyrinth_size} Labyrinth not found", code=404)
             
             serializer = RoomSerializer(rooms, many=True)
             return Response(serializer.data)
+        elif labyrinth_id:
+            rooms=load_labyrinth_for_id(labyrinth_id)
+            if rooms == None: 
+                raise NotFound(detail=f"{labyrinth_size} Labyrinth not found", code=404)
+            
+            serializer = RoomSerializer(rooms, many=True)
+            return Response(serializer.data)
+
+class RoomObjectiveView(APIView):
+    def get(self, request):
+        labyrinth_id = request.query_params.get('labyrinth_id')
+        if labyrinth_id:
+            rooms = load_labyrinth_for_id(labyrinth_id)
+            room_ids = [room.id for room in rooms]
+            rooms_objectives = RoomObjective.objects.filter(room_id__in=room_ids)
+        else:
+            rooms_objectives = RoomObjective.objects.all().values()
+
+        serializer = RoomObjectiveSerializer(rooms_objectives, many=True)
+        return Response(list(serializer.data))

@@ -16,11 +16,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import *
+from objects.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('api.routers')),
+    # path('', include('routers')), Change this router to reflect the one below
     path('objective/', ObjectiveView.as_view()),
-    path('labyrinth/', LabyrinthView.as_view())
+    path('labyrinth/', LabyrinthView.as_view()),
+    path('roomObjective/', RoomObjectiveView.as_view())
 ]
+
+
+"""
+Example of router to be used 
+
+from rest_framework import routers
+
+router = routers.SimpleRouter()
+router.register(r'users', UserViewSet)
+router.register(r'accounts', AccountViewSet)
+urlpatterns = router.urls
+"""

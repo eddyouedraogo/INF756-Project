@@ -51,7 +51,7 @@
         "model": "objects.action",
         "pk": 1,
         "fields" : {
-            "name": "NORD",
+            "name": "MARCHER",
             "intelligence_needed_to_perform": 1
         }
     },
@@ -59,37 +59,13 @@
         "model": "objects.action",
         "pk": 2,
         "fields" : {
-            "name": "SUD",
-            "intelligence_needed_to_perform": 1
-        }
-    },
-    {
-        "model": "objects.action",
-        "pk": 3,
-        "fields" : {
-            "name": "OUEST",
-            "intelligence_needed_to_perform": 1
-        }
-    },
-    {
-        "model": "objects.action",
-        "pk": 4,
-        "fields" : {
-            "name": "EST",
-            "intelligence_needed_to_perform": 1
-        }
-    },
-    {
-        "model": "objects.action",
-        "pk": 5,
-        "fields" : {
             "name": "MANGER",
             "intelligence_needed_to_perform": 5
         }
     },
     {
         "model": "objects.action",
-        "pk": 6,
+        "pk": 3,
         "fields" : {
             "name": "ENREGISTRER_VISITE",
             "intelligence_needed_to_perform": 8
@@ -97,13 +73,36 @@
     },
     {
         "model": "objects.action",
-        "pk": 7,
+        "pk": 4,
         "fields" : {
             "name": "CONNAITRE_ALENTOUR",
             "intelligence_needed_to_perform": 8
         }
     },
-
+    {
+        "model": "objects.labyrinth",
+        "pk": 1,
+        "fields" : {
+            "name": "Small Maze",
+            "size": "Petit"
+        }
+    },
+    {
+        "model": "objects.labyrinth",
+        "pk": 2,
+        "fields" : {
+            "name": "Average Maze",
+            "size": "Moyen"
+        }
+    },
+    {
+        "model": "objects.labyrinth",
+        "pk": 3,
+        "fields" : {
+            "name": "Big Maze",
+            "size": "Grand"
+        }
+    },
     
     {
         "model": "objects.room",
@@ -123,7 +122,7 @@
             "room_number": 2,
             "is_lab_entrance": false,
             "is_lab_exit": false,
-            "available_exits": [1, 3],
+            "available_exits": [1, 3, 7],
             "labyrinth": 1
         }
     },
@@ -222,7 +221,7 @@
             "room_number": 11,
             "is_lab_entrance": false,
             "is_lab_exit": false,
-            "available_exits": [6, 12],
+            "available_exits": [6, 12, 16],
             "labyrinth": 1
         }
     },
@@ -364,8 +363,8 @@
         "fields" : {
             "room_number": 24,
             "is_lab_entrance": false,
-            "is_lab_exit": true,
-            "available_exits": [19, 24],
+            "is_lab_exit": false,
+            "available_exits": [19, 25],
             "labyrinth": 1
         }
     },
@@ -375,9 +374,1271 @@
         "fields" : {
             "room_number": 25,
             "is_lab_entrance": false,
-            "is_lab_exit": true,
+            "is_lab_exit": false,
             "available_exits": [20, 24],
             "labyrinth": 1
+        }
+    },
+
+    {
+        "model": "objects.room",
+        "pk": 26,
+        "fields" : {
+            "room_number": 1,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [2, 11],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 27,
+        "fields" : {
+            "room_number": 2,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [1, 3],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 28,
+        "fields" : {
+            "room_number": 3,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [2, 13],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 29,
+        "fields" : {
+            "room_number": 4,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [5, 14],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 30,
+        "fields" : {
+            "room_number": 5,
+            "is_lab_entrance": true,
+            "is_lab_exit": false,
+            "available_exits": [4, 6],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 31,
+        "fields" : {
+            "room_number": 6,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [5, 7],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 32,
+        "fields" : {
+            "room_number": 7,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [6, 8],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 33,
+        "fields" : {
+            "room_number": 8,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [7, 18],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 34,
+        "fields" : {
+            "room_number": 9,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [10, 19],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 35,
+        "fields" : {
+            "room_number": 10,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [9],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 36,
+        "fields" : {
+            "room_number": 11,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [1, 12],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 37,
+        "fields" : {
+            "room_number": 12,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [11, 22],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 38,
+        "fields" : {
+            "room_number": 13,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [3, 23],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 39,
+        "fields" : {
+            "room_number": 14,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [4, 24],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 40,
+        "fields" : {
+            "room_number": 15,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [16, 25],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 41,
+        "fields" : {
+            "room_number": 16,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [15, 17],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 42,
+        "fields" : {
+            "room_number": 17,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [16, 18, 27],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 43,
+        "fields" : {
+            "room_number": 18,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [8, 17, 28],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 44,
+        "fields" : {
+            "room_number": 19,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [9, 20],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 45,
+        "fields" : {
+            "room_number": 20,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [19, 30],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 46,
+        "fields" : {
+            "room_number": 21,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [22, 31],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 47,
+        "fields" : {
+            "room_number": 22,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [12, 21],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 48,
+        "fields" : {
+            "room_number": 23,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [13, 33],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 49,
+        "fields" : {
+            "room_number": 24,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [14],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 50,
+        "fields" : {
+            "room_number": 25,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [15, 35],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 51,
+        "fields" : {
+            "room_number": 26,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [27],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 52,
+        "fields" : {
+            "room_number": 27,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [17, 26],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 53,
+        "fields" : {
+            "room_number": 28,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [18, 29],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 54,
+        "fields" : {
+            "room_number": 29,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [28, 30],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 55,
+        "fields" : {
+            "room_number": 30,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [20, 29],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 56,
+        "fields" : {
+            "room_number": 31,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [21],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 57,
+        "fields" : {
+            "room_number": 32,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [33, 42],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 58,
+        "fields" : {
+            "room_number": 33,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [23, 32, 34],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 59,
+        "fields" : {
+            "room_number": 34,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [33, 44],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 60,
+        "fields" : {
+            "room_number": 35,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [25, 36],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 61,
+        "fields" : {
+            "room_number": 36,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [35, 46],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 62,
+        "fields" : {
+            "room_number": 37,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [38, 47],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 63,
+        "fields" : {
+            "room_number": 38,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [37, 39],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 64,
+        "fields" : {
+            "room_number": 39,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [38, 40],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 65,
+        "fields" : {
+            "room_number": 40,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [39, 50],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 66,
+        "fields" : {
+            "room_number": 41,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [42, 51],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 67,
+        "fields" : {
+            "room_number": 42,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [32, 41],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 68,
+        "fields" : {
+            "room_number": 43,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [44],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 69,
+        "fields" : {
+            "room_number": 44,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [34, 43, 45],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 70,
+        "fields" : {
+            "room_number": 45,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [44, 55],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 71,
+        "fields" : {
+            "room_number": 46,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [36, 56],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 72,
+        "fields" : {
+            "room_number": 47,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [37, 57],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 73,
+        "fields" : {
+            "room_number": 48,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [58],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 74,
+        "fields" : {
+            "room_number": 49,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [50, 59],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 75,
+        "fields" : {
+            "room_number": 50,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [40, 49, 60],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 76,
+        "fields" : {
+            "room_number": 51,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [41, 52],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 77,
+        "fields" : {
+            "room_number": 52,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [51, 62],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 78,
+        "fields" : {
+            "room_number": 53,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [54, 63],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 79,
+        "fields" : {
+            "room_number": 54,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [53, 64],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 80,
+        "fields" : {
+            "room_number": 55,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [45, 56],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 81,
+        "fields" : {
+            "room_number": 56,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [55, 46],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 82,
+        "fields" : {
+            "room_number": 57,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [47, 67],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 83,
+        "fields" : {
+            "room_number": 58,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [48, 59],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 84,
+        "fields" : {
+            "room_number": 59,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [58, 49],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 85,
+        "fields" : {
+            "room_number": 60,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [50, 70],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 86,
+        "fields" : {
+            "room_number": 61,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [62, 71],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 87,
+        "fields" : {
+            "room_number": 62,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [52, 61, 63],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 88,
+        "fields" : {
+            "room_number": 63,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [53, 62],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 89,
+        "fields" : {
+            "room_number": 64,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [54, 74],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 90,
+        "fields" : {
+            "room_number": 65,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [66, 75],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 91,
+        "fields" : {
+            "room_number": 66,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [65, 67],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 92,
+        "fields" : {
+            "room_number": 67,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [57, 66, 68],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 93,
+        "fields" : {
+            "room_number": 68,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [67, 78],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 94,
+        "fields" : {
+            "room_number": 69,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [70, 79],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 95,
+        "fields" : {
+            "room_number": 70,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [60, 69],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 96,
+        "fields" : {
+            "room_number": 71,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [61, 81],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 97,
+        "fields" : {
+            "room_number": 72,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [73, 82],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 98,
+        "fields" : {
+            "room_number": 73,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [72, 83],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 99,
+        "fields" : {
+            "room_number": 74,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [64, 84],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 100,
+        "fields" : {
+            "room_number": 75,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [65, 85],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 101,
+        "fields" : {
+            "room_number": 76,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [77, 86],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 102,
+        "fields" : {
+            "room_number": 77,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [76, 87],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 103,
+        "fields" : {
+            "room_number": 78,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [68, 88],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 104,
+        "fields" : {
+            "room_number": 79,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [69, 80],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 105,
+        "fields" : {
+            "room_number": 80,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [79, 90],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 106,
+        "fields" : {
+            "room_number": 81,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [71, 91],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 107,
+        "fields" : {
+            "room_number": 82,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [72],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 108,
+        "fields" : {
+            "room_number": 83,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [73, 93],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 109,
+        "fields" : {
+            "room_number": 84,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [74, 85, 94],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 110,
+        "fields" : {
+            "room_number": 85,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [75, 84],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 111,
+        "fields" : {
+            "room_number": 86,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [76, 96],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 112,
+        "fields" : {
+            "room_number": 87,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [77, 97],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 113,
+        "fields" : {
+            "room_number": 88,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [78, 89],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 114,
+        "fields" : {
+            "room_number": 89,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [88, 99],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 115,
+        "fields" : {
+            "room_number": 90,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [80, 100],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 116,
+        "fields" : {
+            "room_number": 91,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [81, 92],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 117,
+        "fields" : {
+            "room_number": 92,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [91, 93],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 118,
+        "fields" : {
+            "room_number": 93,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [83, 92],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 119,
+        "fields" : {
+            "room_number": 94,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [84, 95],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 120,
+        "fields" : {
+            "room_number": 95,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [94],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 121,
+        "fields" : {
+            "room_number": 96,
+            "is_lab_entrance": false,
+            "is_lab_exit": true,
+            "available_exits": [86],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 122,
+        "fields" : {
+            "room_number": 97,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [87, 98],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 123,
+        "fields" : {
+            "room_number": 98,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [97, 99],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 124,
+        "fields" : {
+            "room_number": 99,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [89, 98],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.room",
+        "pk": 125,
+        "fields" : {
+            "room_number": 100,
+            "is_lab_entrance": false,
+            "is_lab_exit": false,
+            "available_exits": [90],
+            "labyrinth": 2
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 1,
+        "fields": {
+            "objective_id": 2,
+            "room_id": 1
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 2,
+        "fields": {
+            "objective_id": 3,
+            "room_id": 5
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 3,
+        "fields": {
+            "objective_id": 6,
+            "room_id": 6
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 4,
+        "fields": {
+            "objective_id": 4,
+            "room_id": 8
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 5,
+        "fields": {
+            "objective_id": 1,
+            "room_id": 10
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 6,
+        "fields": {
+            "objective_id": 1,
+            "room_id": 16
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 7,
+        "fields": {
+            "objective_id": 5,
+            "room_id": 21
+        }
+    },
+
+    {
+        "model": "objects.roomobjective",
+        "pk": 8,
+        "fields": {
+            "objective_id": 1,
+            "room_id": 36
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 9,
+        "fields": {
+            "objective_id": 5,
+            "room_id": 35
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 10,
+        "fields": {
+            "objective_id": 4,
+            "room_id": 49
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 11,
+        "fields": {
+            "objective_id": 3,
+            "room_id": 51
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 12,
+        "fields": {
+            "objective_id": 6,
+            "room_id": 59
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 13,
+        "fields": {
+            "objective_id": 4,
+            "room_id": 73
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 14,
+        "fields": {
+            "objective_id": 2,
+            "room_id": 77
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 15,
+        "fields": {
+            "objective_id": 1,
+            "room_id": 79
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 16,
+        "fields": {
+            "objective_id": 6,
+            "room_id": 90
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 17,
+        "fields": {
+            "objective_id": 1,
+            "room_id": 93
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 18,
+        "fields": {
+            "objective_id": 1,
+            "room_id": 95
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 19,
+        "fields": {
+            "objective_id": 3,
+            "room_id": 107
+        }
+    },
+    {
+        "model": "objects.roomobjective",
+        "pk": 20,
+        "fields": {
+            "objective_id": 2,
+            "room_id": 125
         }
     }
 ]
