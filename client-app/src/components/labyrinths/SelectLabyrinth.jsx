@@ -19,7 +19,7 @@ export default function SelectLabyrinth() {
 
   const transformOption = (labyrinth) => {
     return {
-      label: labyrinth.name,
+      label: `${labyrinth.name} - ${labyrinth.size}`,
       value: labyrinth.id
     };
   };

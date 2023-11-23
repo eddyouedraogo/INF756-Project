@@ -1,4 +1,6 @@
 {
   "/api/v1/rules": "/rules",
-  "/api/v1/labyrinths": "/labyrinths"
+  "/api/v1/labyrinths": "/labyrinths",
+  "/api/v1/labyrinth?size=Petit": "/rooms-petit",
+  "/api/v1/labyrinth?size=Moyen": "/rooms-moyen"
 }

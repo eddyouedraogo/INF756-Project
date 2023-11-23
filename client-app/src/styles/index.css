@@ -1,0 +1,45 @@
+.room {
+  background: #fff;
+  border: 1px solid #555;
+  float: left;
+  font-size: 15px;
+  height: 100px;
+  width: 100px;
+  text-align: center;
+}
+
+.room-small {
+  background: #fff;
+  border: 1px solid #555;
+  float: left;
+  font-size: 15px;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+}
+
+.no-top-border {
+  border-top: none;
+}
+
+.no-bottom-border {
+  border-bottom: none;
+}
+
+.no-left-border {
+  border-left: none;
+}
+
+.no-right-border {
+  border-right: none;
+}
+
+.room:focus {
+  outline: none;
+}
+
+.labyrinth {
+  margin: 10%;
+  display: flex;
+  flex-direction: row;
+}
