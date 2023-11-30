@@ -34,6 +34,7 @@ CORS_EXPOSE_HEADERS = default_headers
 INSTALLED_APPS = [
     'simulation',
     'corsheaders',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -72,7 +73,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'simulation.wsgi.application'
+ASGI_APPLICATION = 'simulation.asgi.application'
 
+# Channels
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redis', 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
