@@ -1,16 +1,33 @@
 from .api_requests import *
+from .mouse import Mouse
 
+action_rules = []
+objective_rules = []
 
 def create_simulation(payload):
     print("******** Creating Simulation ******")
     labyrinth_id = payload.get("labyrinth_id")
     rule_set_id = payload.get("ruleSet_id")
+    mouses_intelligences = payload.get("mouses_intelligence")
 
 
     labyrinth = get_labyrinth(labyrinth_id)
     intelligences = get_intelligences()
+    global action_rules 
     action_rules = get_action_rule_for_rule_set(rule_set_id)
+    global objective_rules 
     objective_rules = get_objective_rule_for_rule_set(rule_set_id)
+
+    print("******** Generating Mouses ******")
+    mouses = []
+    for mouse_i in mouses_intelligences :
+        intelligence_id = mouse_i.get("intelligence_id")
+        for i in intelligences :
+            if i.get("id") == intelligence_id:
+                mouse = Mouse(i.get("max_level"), 10, 10, None)
+                mouses.append(mouse)
+
+    print("Mouses : ", mouses)
 
     
     visited_dfs = []
@@ -29,12 +46,13 @@ def create_simulation(payload):
         room=lab_entrance, 
         parent=lab_entrance, 
         parents=parents, 
-        exit_found=False
+        exit_found=False,
+        mouse=mouses.pop()
         )
     
-    bfs_intelligence(visited_bfs, labyrinth, lab_entrance, queue_bfs)
+    bfs_intelligence(visited_bfs, labyrinth, lab_entrance, queue_bfs, mouses.pop())
 
-    route = bfs_intelligence_smart_mouse(labyrinth, lab_entrance)
+    route = bfs_intelligence_cheating_mouse(labyrinth, lab_entrance)
     path = [room.get("room_number") for room in route]
 
     return {
@@ -44,12 +62,13 @@ def create_simulation(payload):
         "visited_bfs_smart_mouse": path,
         }
 
-def dfs_intelligence(visited, labyrinth, room, parent, parents, exit_found):
+def dfs_intelligence(visited, labyrinth, room, parent, parents, exit_found, mouse):
     print("***************************** BEGINNING DFS ************************")
-
+    
     if (room.get("room_number") not in visited):
         parents.append(parent)
         print ("The mouse is currently in room ", room.get("room_number"))
+        mouse.take_step(room, action_rules, objective_rules)
         visited.append(room.get("room_number"))
 
         if room.get("is_lab_exit"):
@@ -64,22 +83,23 @@ def dfs_intelligence(visited, labyrinth, room, parent, parents, exit_found):
             #Si la souris est dans une impasse il faut noter qu'elle est revenue en arriere
             if len(available_exits_ids) == 1 and available_exits_ids[0] in visited:
                 print("Mouse hit a wall... backtracking...")
-                next_room = dfs_backtrack(visited, labyrinth, parents)
+                next_room = dfs_backtrack(visited, labyrinth, parents, mouse)
                 if next_room and not exit_found: 
-                    exit_found = dfs_intelligence(visited, labyrinth, next_room, room, parents, exit_found)
+                    exit_found = dfs_intelligence(visited, labyrinth, next_room, room, parents, exit_found, mouse)
                 return exit_found
             else: 
                 for next_room in available_exits:
                     if not exit_found:
                         node = next_room.get("room_number")
                         print("Mouse is visiting next node", node)
-                        exit_found = dfs_intelligence(visited, labyrinth, next_room, room, parents, exit_found)
+                        exit_found = dfs_intelligence(visited, labyrinth, next_room, room, parents, exit_found, mouse)
                 return exit_found
     return exit_found
 
-def dfs_backtrack(visited, labyrinth, parents): 
+def dfs_backtrack(visited, labyrinth, parents, mouse): 
     current_parent = parents.pop()
 
+    mouse.take_step(current_parent, action_rules, objective_rules)
     visited.append(current_parent.get("room_number"))
     parent_room_number = current_parent.get("room_number")
     print (f"Mouse backtracked to {parent_room_number}")
@@ -93,7 +113,7 @@ def dfs_backtrack(visited, labyrinth, parents):
     exit_rooms_visited = all(rooms in last_n_rooms for rooms in available_exits_ids)
     if exit_rooms_visited:
         print("Backtracking again. The mouse already visited all nodes")
-        dfs_backtrack(visited, labyrinth, parents)
+        dfs_backtrack(visited, labyrinth, parents, mouse)
     else:
         print("Mouse found an unvisited room... going there")
         available_exits = get_room_from_number(available_exits_ids, labyrinth)
@@ -109,7 +129,7 @@ def dfs_backtrack(visited, labyrinth, parents):
 #         if room.get("available_exits") not in visited:
 #             return room
 
-def bfs_intelligence(visited, labyrinth, room, queue): 
+def bfs_intelligence(visited, labyrinth, room, queue, mouse): 
     queue.append(room)
     exit_found = False
     
@@ -149,7 +169,7 @@ def bfs_backtracking(visited, backtrack_to_room):
         else:
             visited.append(room)
 
-def bfs_intelligence_smart_mouse(labyrinth, room):
+def bfs_intelligence_cheating_mouse(labyrinth, room):
     queue = []
     queue.append([room])
     
