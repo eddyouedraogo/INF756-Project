@@ -6,6 +6,7 @@ const initialState = {
   list: [],
   selected: undefined,
   loading: 'loading',
+  selectedRoomNumber: 0,
   error: null
 };
 
@@ -15,6 +16,9 @@ const labyrinthslice = createSlice({
   reducers: {
     setLabyrinth: (state, action) => {
       state.selected = action.payload;
+    },
+    setSelectedRoomNumber: (state, action) => {
+      state.selectedRoomNumber = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -34,6 +38,6 @@ const labyrinthslice = createSlice({
   }
 });
 
-export const { setLabyrinth } = labyrinthslice.actions;
+export const { setLabyrinth, setSelectedRoomNumber } = labyrinthslice.actions;
 
 export default labyrinthslice.reducer;

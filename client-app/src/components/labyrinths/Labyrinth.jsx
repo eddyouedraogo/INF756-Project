@@ -3,7 +3,7 @@ import '../../styles/index.css';
 import Row from './Row';
 
 export default function Labyrinth({ data }) {
-  const sortedLabyrinthe = [...data].sort((a, b) => a.id - b.id);
+  const sortedLabyrinthe = [...data].sort((a, b) => a.room_number - b.room_number);
 
   const elementsPerRow = Math.ceil(Math.sqrt(sortedLabyrinthe.length));
 
