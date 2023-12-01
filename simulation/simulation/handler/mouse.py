@@ -45,5 +45,7 @@ class Mouse:
         res = current_value + to_be_added
         if res > 10:
             return 10
+        elif res <= 0:
+            return 0
         else: 
             return res
