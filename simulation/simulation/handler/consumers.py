@@ -6,6 +6,7 @@ from ..serializers import CreateSimulationSerializer
 from .api_requests import *
 from .mouse import Mouse
 import time
+import threading
 
 class SimulationConsumer(WebsocketConsumer):
 
@@ -105,52 +106,105 @@ class SimulationConsumer(WebsocketConsumer):
         mouses = []
         mouse_id = 0
         for mouse_i in mouses_intelligences :
-            mouse_id = mouse_id + 1
+            print("mouse_i", mouse_i)
             intelligence_id = mouse_i.get("intelligence_id")
-            for i in intelligences :
-                if i.get("id") == intelligence_id:
-                    intelligence_level = i.get("max_level")
-                    mouse = Mouse(mouse_id, intelligence_level, 10, 10, None)
-                    mouses.append(mouse)
-        
-        visited_dfs = []
-        lab_entrance = labyrinth[0]
-        parents = [lab_entrance]
+            number_of_mouses = mouse_i.get("number_of_mouses")
+            for i in range(number_of_mouses):
+                print("m", i)
+                mouse_id = mouse_id + 1
+                print("mouse_id", mouse_id)
+                for i in intelligences :
+                    if i.get("id") == intelligence_id:
+                        intelligence_level = i.get("max_level")
+                        mouse = Mouse(mouse_id, intelligence_level, 10, 10, None)
+                        mouses.append(mouse)
+        print("number of mouses", mouses)
+        self.assign_intelligences(mouses, labyrinth, action_rules, objective_rules)
 
-        self.dfs_intelligence(
-        visited=visited_dfs, 
-        labyrinth=labyrinth, 
-        room=lab_entrance, 
-        parent=lab_entrance, 
-        parents=parents, 
-        exit_found=False,
-        mouse=mouses.pop(), 
-        action_rules=action_rules, 
-        objective_rules=objective_rules
-        )
-    
+
+
+    def assign_intelligences(self, mouses, labyrinth, action_rules, objective_rules):
+        self.send_info_msg("Assigning intelligences to mouses")
+        
+        lab_entrance = labyrinth[0]
+        
+        for mouse in mouses: 
+            if mouse.intelligence >= 7:
+                self.send_info_msg(f"Assigning DFS to mouse {mouse.id}")
+                
+                visited_dfs = []
+                parents = [lab_entrance]
+
+                th_dfs = threading.Thread(
+                    target=self.dfs_intelligence,
+                    args=(
+                visited_dfs, 
+                labyrinth, 
+                lab_entrance, 
+                lab_entrance, 
+                parents, 
+                False,
+                mouse, 
+                action_rules, 
+                objective_rules
+                ))
+                th_dfs.start()
+                # self.dfs_intelligence(
+                # visited=visited_dfs, 
+                # labyrinth=labyrinth, 
+                # room=lab_entrance, 
+                # parent=lab_entrance, 
+                # parents=parents, 
+                # exit_found=False,
+                # mouse=mouse, 
+                # action_rules=action_rules, 
+                # objective_rules=objective_rules
+                # )
+            
+            elif mouse.intelligence >= 4 : 
+                self.send_info_msg(f"Assigning BFS to mouse {mouse.id}")
+                visited_bfs = []
+                queue_bfs = []
+                
+                th_bfs = threading.Thread(
+                    target=self.bfs_intelligence,
+                    args=(visited_bfs, labyrinth, lab_entrance, queue_bfs, mouse, action_rules, objective_rules))
+                th_bfs.start()
+                # self.bfs_intelligence(visited_bfs, labyrinth, lab_entrance, queue_bfs, mouse, action_rules, objective_rules)
+            
+            elif mouse.intelligence > 10:
+                self.send_info_msg(f"Mouse {mouse.id} is cheating")
+                route = self.bfs_intelligence_cheating_mouse(self, labyrinth, lab_entrance, mouse, action_rules, objective_rules)
+                th_cheating = threading.Thread(
+                    target=self.handle_cheating_mouse_route,
+                    args=(
+                        route,
+                        mouse,
+                        action_rules,
+                        objective_rules
+                        ))
+                th_cheating.start()
+                # self.handle_cheating_mouse_route(route, mouse, action_rules, objective_rules)
+
+
     def dfs_intelligence(self, visited, labyrinth, room, parent, parents, exit_found, mouse, action_rules, objective_rules):
-    
         if (room.get("room_number") not in visited):
             parents.append(parent)
-            print ("The mouse is currently in room ", room.get("room_number"))
-            mouse.take_step(room, action_rules, objective_rules)
-            visited.append(room.get("room_number"))
-            self.send_mouse_status(mouse)
-            time.sleep(1)
+            
+            self.ask_mouth_to_take_a_step( mouse, visited, room, action_rules, objective_rules)
 
             if room.get("is_lab_exit"):
-                print("Mouse has reached the exit")
+                # print("Mouse has reached the exit")
                 exit_found = True
                 return exit_found
             else:
                 available_exits_ids = room.get("available_exits")
-                print (f"Available Exists are {available_exits_ids}")
+                # print (f"Available Exists are {available_exits_ids}")
                 available_exits = self.get_room_from_number(available_exits_ids, labyrinth)
         
                 #Si la souris est dans une impasse il faut noter qu'elle est revenue en arriere
                 if len(available_exits_ids) == 1 and available_exits_ids[0] in visited:
-                    print("Mouse hit a wall... backtracking...")
+                    # print("Mouse hit a wall... backtracking...")
                     next_room = self.dfs_backtrack(visited, labyrinth, parents, mouse, action_rules, objective_rules)
                     if next_room and not exit_found: 
                         exit_found = self.dfs_intelligence(visited, labyrinth, next_room, room, parents, exit_found, mouse, action_rules, objective_rules)
@@ -159,7 +213,7 @@ class SimulationConsumer(WebsocketConsumer):
                     for next_room in available_exits:
                         if not exit_found:
                             node = next_room.get("room_number")
-                            print("Mouse is visiting next node", node)
+                            # print("Mouse is visiting next node", node)
                             exit_found = self.dfs_intelligence(visited, labyrinth, next_room, room, parents, exit_found, mouse, action_rules, objective_rules)
                     return exit_found
         return exit_found
@@ -167,29 +221,27 @@ class SimulationConsumer(WebsocketConsumer):
     def dfs_backtrack(self, visited, labyrinth, parents, mouse, action_rules, objective_rules): 
         current_parent = parents.pop()
 
-        mouse.take_step(current_parent, action_rules, objective_rules)
-        visited.append(current_parent.get("room_number"))
-        self.send_mouse_status(mouse)
+        self.ask_mouth_to_take_a_step(mouse, visited, current_parent, action_rules, objective_rules)
 
         parent_room_number = current_parent.get("room_number")
-        print (f"Mouse backtracked to {parent_room_number}")
+        # print (f"Mouse backtracked to {parent_room_number}")
     
         available_exits_ids = current_parent.get("available_exits")
-        print (f"Parents Available Exists are {available_exits_ids}")
+        # print (f"Parents Available Exists are {available_exits_ids}")
 
         last_n_rooms = visited[-40:]
-        print (f"last_n_rooms {last_n_rooms}")
+        # print (f"last_n_rooms {last_n_rooms}")
 
         exit_rooms_visited = all(rooms in last_n_rooms for rooms in available_exits_ids)
         if exit_rooms_visited:
-            print("Backtracking again. The mouse already visited all nodes")
+            # print("Backtracking again. The mouse already visited all nodes")
             self.dfs_backtrack(visited, labyrinth, parents, mouse, action_rules, objective_rules)
         else:
-            print("Mouse found an unvisited room... going there")
+            # print("Mouse found an unvisited room... going there")
             available_exits = self.get_room_from_number(available_exits_ids, labyrinth)
             for next_room in available_exits:
                 if next_room.get("room_number") not in visited:
-                    print("Unvisited room is", next_room.get("room_number") )
+                    # print("Unvisited room is", next_room.get("room_number") )
                     return next_room
                 
     def bfs_intelligence(self, visited, labyrinth, room, queue, mouse, action_rules, objective_rules): 
@@ -198,29 +250,31 @@ class SimulationConsumer(WebsocketConsumer):
     
         while (queue and not exit_found):     
             current_room = queue.pop(0) 
-            print (current_room, end = " ") 
+            # print (current_room, end = " ") 
         
             available_exits_ids = current_room.get("available_exits")
-            print (f"Available Exists are {available_exits_ids}")
+            # print (f"Available Exists are {available_exits_ids}")
             available_exits = self.get_room_from_number(available_exits_ids, labyrinth)
         
             #On retrace le chemin pour aller visiter les autres noeud 
             if visited:
-                self.bfs_backtracking(visited, current_room.get("room_number"), action_rules, objective_rules)
+                self.bfs_backtracking(mouse, visited, current_room.get("room_number"), action_rules, objective_rules, labyrinth)
 
             for next_room in available_exits:
-                print("Next Room is ", next_room.get("room_number"))
+                # print("Next Room is ", next_room.get("room_number"))
                 if next_room.get("room_number") not in visited:
-                    visited.append(current_room.get("room_number"))
-                    visited.append(next_room.get("room_number"))
+                    self.ask_mouth_to_take_a_step(mouse, visited, current_room, action_rules, objective_rules)
+                    self.ask_mouth_to_take_a_step(mouse, visited, next_room, action_rules, objective_rules)
+                    # visited.append(current_room.get("room_number"))
+                    # visited.append(next_room.get("room_number"))
                     queue.append(next_room)
                 
                     if next_room.get("is_lab_exit"):
                         exit_found = True
-                        print("Mouse has reached the exit")
+                        # print("Mouse has reached the exit")
                         break
     
-    def bfs_backtracking(self, visited, backtrack_to_room):
+    def bfs_backtracking(self,mouse, visited, backtrack_to_room, action_rules, objective_rules, labyrinth):
         path = visited
         last_element = visited[-1]
 
@@ -230,9 +284,11 @@ class SimulationConsumer(WebsocketConsumer):
             elif room == last_element:
                 continue
             else:
-                visited.append(room)
+                # visited.append(room)
+                ret = self.get_room_from_number([room], labyrinth)
+                self.ask_mouth_to_take_a_step(mouse, visited, ret.pop(), action_rules, objective_rules)
 
-    def bfs_intelligence_cheating_mouse(self, labyrinth, room):
+    def bfs_intelligence_cheating_mouse(self, labyrinth, room, action_rules, objective_rules):
         queue = []
         queue.append([room])
     
@@ -247,7 +303,7 @@ class SimulationConsumer(WebsocketConsumer):
         
 
             available_exits_ids = current_room.get("available_exits")
-            print (f"Available Exists are {available_exits_ids}")
+            # print (f"Available Exists are {available_exits_ids}")
             available_exits = self.get_room_from_number(available_exits_ids, labyrinth)
 
             for next_room in available_exits:
@@ -263,3 +319,13 @@ class SimulationConsumer(WebsocketConsumer):
             if room.get("room_number") in rom_numbers:
                 rooms.append(room)
         return rooms
+    
+    def ask_mouth_to_take_a_step(self, mouse, visited, room, action_rules, objective_rules ):
+        mouse.take_step(room, action_rules, objective_rules)
+        visited.append(room.get("room_number"))
+        self.send_mouse_status(mouse)
+        time.sleep(1)
+
+    def handle_cheating_mouse_route(self,route, mouse, action_rules, objective_rules):
+        for room in route:
+            self.ask_mouth_to_take_a_step(self, mouse, [], room, action_rules, objective_rules )

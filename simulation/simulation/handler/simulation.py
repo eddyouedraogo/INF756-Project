@@ -20,11 +20,13 @@ def create_simulation(payload):
 
     print("******** Generating Mouses ******")
     mouses = []
+    mouse_id = 0
     for mouse_i in mouses_intelligences :
+        mouse_id = mouse_id+1
         intelligence_id = mouse_i.get("intelligence_id")
         for i in intelligences :
             if i.get("id") == intelligence_id:
-                mouse = Mouse(i.get("max_level"), 10, 10, None)
+                mouse = Mouse(mouse_id, i.get("max_level"), 10, 10, None)
                 mouses.append(mouse)
 
     print("Mouses : ", mouses)
