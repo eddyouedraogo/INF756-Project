@@ -12,7 +12,7 @@ class SimulationConsumer(WebsocketConsumer):
 
     def connect(self):
         self.lab_name = self.scope['url_route']['kwargs']['lab_name']
-        self.lab_group_name = f'simulation_{self.lab_name}'
+        self.lab_group_name = f'simulation'
 
         self.accept()
 
@@ -77,7 +77,8 @@ class SimulationConsumer(WebsocketConsumer):
                         "intelligence": mouse.intelligence,
                         "health": mouse.health,
                         "mental": mouse.mental,
-                        "current_room": mouse.current_room.get("room_number")
+                        "current_room": mouse.current_room.get("room_number"),
+                        "objective_consumed": mouse.objective_consumed
                     }
                 }
             )
