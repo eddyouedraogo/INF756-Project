@@ -9,36 +9,16 @@ import {
   Badge,
   Cards
 } from '@cloudscape-design/components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import CustumLayout from '../layout';
 import ItemDescription from '../components/rules/ItemDescription';
 import ObjectiveList from '../components/objectives/List';
-// import lauchSimulation from '../services/simulation/simulation';
 
 export default function ReviewPage() {
   const selectedLabyrinth = useSelector((state) => state.labyrinth.selected);
   const selectedStupid = useSelector((state) => state.mouse.selected_stupid);
   const selectedSmart = useSelector((state) => state.mouse.selected_smart);
   const selectedRuleItems = useSelector((state) => state.rule.selected);
-  const navigate = useNavigate();
-
-  const startSimulation = async () => {
-    // const data = {
-    //   mouses_intelligence: [
-    //     { intelligence_id: 1, number_of_mouses: selectedSmart.length },
-    //     { intelligence_id: 3, number_of_mouses: selectedStupid.length }
-    //   ],
-    //   labyrinth_id: selectedLabyrinth?.value,
-    //   ruleSet_id: selectedRuleItems[0].id
-    // };
-
-    try {
-      //  await lauchSimulation(data);
-      navigate('/simulation');
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <CustumLayout title='Etape 2' subtitle='Résumé de vos sélections'>
@@ -48,9 +28,9 @@ export default function ReviewPage() {
             <Link to='/configure'>
               <Button>Retour </Button>
             </Link>
-            <Button onClick={startSimulation} variant='primary'>
-              Lancer la simulation{' '}
-            </Button>
+            <Link to='/simulation' variant='primary'>
+              <Button variant='primary'> Lancer la simulation </Button>
+            </Link>
           </SpaceBetween>
         </Box>
         <Grid gridDefinition={[{ colspan: 3 }, { colspan: 4 }, { colspan: 4 }]}>

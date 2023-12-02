@@ -22,7 +22,7 @@ export default function Selector() {
     return {
       id,
       name,
-      description: `<ul>${items.map((item) => `<li>${item.name}</li>`).join('')}</ul>`
+      description: `<ul>${items.map((item) => `<li>${item.description}</li>`).join('')}</ul>`
     };
   };
 
