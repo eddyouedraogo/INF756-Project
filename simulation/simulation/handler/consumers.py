@@ -338,8 +338,8 @@ class SimulationConsumer(WebsocketConsumer):
         else:
             self.send_mouse_status(mouse)
             mouse_dead = False
-            # mouse_speed = 10 - mouse.health
-            # time.sleep(mouse_speed)
+            mouse_speed = 20 - mouse.health
+            time.sleep(mouse_speed)
         return mouse_dead
         
 
