@@ -19,13 +19,11 @@ class Mouse:
         self.current_room = room
         objective_id = room.get("objective_id")
         
-        print("Taking a step", room)
         if (objective_id):
             self.interact_with_objective(objectives, objective_id, room)
         return
     
     def interact_with_objective(self, objectives, objective_id, room):
-        print("Interacting with objectives", objectives)
         for objective in objectives:
             if objective.get("objective") == objective_id:
                 self.update_attributes(objective, room)

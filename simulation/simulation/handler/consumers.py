@@ -12,7 +12,7 @@ class SimulationConsumer(WebsocketConsumer):
 
     def connect(self):
         self.lab_name = self.scope['url_route']['kwargs']['lab_name']
-        self.lab_group_name = f'simulation'
+        self.lab_group_name = f'simulation_{self.lab_name}'
 
         self.accept()
 
@@ -30,18 +30,16 @@ class SimulationConsumer(WebsocketConsumer):
     def receive(self, text_data=None, bytes_data=None):
         try:
             text_data_json = json.loads(text_data)
-        except ValueError:
-            self.send_error_msg("Cannot convert payload to json")
+            serializer = CreateSimulationSerializer(data=text_data_json)
 
+            if not serializer.is_valid():
+                self.send_error_msg("Simulation payload is wrong")
         
-        serializer = CreateSimulationSerializer(data=text_data_json)
+            payload = serializer.data
 
-        if not serializer.is_valid():
-            self.send_error_msg("Simulation payload is wrong")
-        
-        payload = serializer.data
-
-        self.create_simulation(payload)
+            self.create_simulation(payload)
+        except Exception:
+            self.send_error_msg("An error as occured")
 
         # async_to_sync(self.channel_layer.group_send)(
         #     self.lab_group_name,
@@ -150,6 +148,7 @@ class SimulationConsumer(WebsocketConsumer):
                             objective_rules
                         ))
                 th_dfs.start()
+                print("visited_dfs", visited_dfs)
             
             elif mouse.intelligence >= 4 : 
                 self.send_info_msg(f"Assigning BFS to mouse {mouse.id}")
@@ -160,6 +159,7 @@ class SimulationConsumer(WebsocketConsumer):
                     target=self.bfs_intelligence,
                     args=(visited_bfs, labyrinth, lab_entrance, queue_bfs, mouse, action_rules, objective_rules))
                 th_bfs.start()
+                print("visited_bfs", visited_bfs)
             
             elif mouse.intelligence >= 0 :
                 visited_low_intelligence = []
@@ -250,7 +250,8 @@ class SimulationConsumer(WebsocketConsumer):
         mouse_dead = False
     
         while (queue and not exit_found and not mouse_dead):     
-            current_room = queue.pop(0) 
+            current_room = queue.pop(0)
+
             available_exits_ids = current_room.get("available_exits")
             available_exits = self.get_room_from_number(available_exits_ids, labyrinth)
         
@@ -261,9 +262,12 @@ class SimulationConsumer(WebsocketConsumer):
             for next_room in available_exits:
 
                 if next_room.get("room_number") not in visited:
+                    visited.append(current_room.get("room_number"))
                     mouse_dead = self.ask_mouth_to_take_a_step(mouse, visited, current_room, action_rules, objective_rules)
                     if mouse_dead:
                         break
+                    
+                    visited.append(next_room.get("room_number"))
                     mouse_dead = self.ask_mouth_to_take_a_step(mouse, visited, next_room, action_rules, objective_rules)
                     if mouse_dead:
                         break
@@ -279,14 +283,18 @@ class SimulationConsumer(WebsocketConsumer):
     def bfs_backtracking(self,mouse, visited, backtrack_to_room, action_rules, objective_rules, labyrinth):
         path = visited
         last_element = visited[-1]
+        print("Visited", visited)
+        print("Backtracking to ", backtrack_to_room)
+        print("Last room ", last_element)
 
         for room in reversed(path):
+            print("Current room ", room)
             if room == backtrack_to_room:
-                return
+                return 
             elif room == last_element:
                 continue
             else:
-                # visited.append(room)
+                visited.append(room)
                 ret = self.get_room_from_number([room], labyrinth)
                 mouse_dead = self.ask_mouth_to_take_a_step(mouse, visited, ret.pop(), action_rules, objective_rules)
                 return mouse_dead
@@ -334,7 +342,8 @@ class SimulationConsumer(WebsocketConsumer):
         else:
             self.send_mouse_status(mouse)
             mouse_dead = False
-            time.sleep(1)
+            # mouse_speed = 10 - mouse.health
+            # time.sleep(mouse_speed)
         return mouse_dead
         
 
