@@ -64,18 +64,1017 @@
   "labyrinths": [
     {
       "id": 1,
-      "name": "Labyrinthe 1",
-      "size": "large"
+      "name": "Small Maze",
+      "size": "Petit"
     },
     {
       "id": 2,
-      "name": "Labyrinthe 2",
-      "size": "medium"
-    },
+      "name": "Average Maze",
+      "size": "Moyen"
+    }
+  ],
+  "rooms-petit": [
     {
       "id": 3,
-      "name": "Labyrinthe 3",
-      "size": "small"
+      "room_number": 3,
+      "is_lab_entrance": true,
+      "is_lab_exit": false,
+      "available_exits": [2, 4],
+      "labyrinth": 1
+    },
+    {
+      "id": 2,
+      "room_number": 2,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [1, 3, 7],
+      "labyrinth": 1
+    },
+    {
+      "id": 4,
+      "room_number": 4,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [3, 5],
+      "labyrinth": 1
+    },
+    {
+      "id": 5,
+      "room_number": 5,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [4],
+      "labyrinth": 1
+    },
+    {
+      "id": 6,
+      "room_number": 6,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [7, 11],
+      "labyrinth": 1
+    },
+    {
+      "id": 7,
+      "room_number": 7,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [2, 6],
+      "labyrinth": 1
+    },
+    {
+      "id": 8,
+      "room_number": 8,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [13],
+      "labyrinth": 1
+    },
+    {
+      "id": 9,
+      "room_number": 9,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [10, 14],
+      "labyrinth": 1
+    },
+    {
+      "id": 10,
+      "room_number": 10,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [9, 15],
+      "labyrinth": 1
+    },
+    {
+      "id": 11,
+      "room_number": 11,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [6, 12, 16],
+      "labyrinth": 1
+    },
+    {
+      "id": 12,
+      "room_number": 12,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [11, 13],
+      "labyrinth": 1
+    },
+    {
+      "id": 13,
+      "room_number": 13,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [8, 12, 14],
+      "labyrinth": 1
+    },
+    {
+      "id": 14,
+      "room_number": 14,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [9, 13],
+      "labyrinth": 1
+    },
+    {
+      "id": 15,
+      "room_number": 15,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [10, 20],
+      "labyrinth": 1
+    },
+    {
+      "id": 16,
+      "room_number": 16,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [11, 17],
+      "labyrinth": 1
+    },
+    {
+      "id": 17,
+      "room_number": 17,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [16, 22],
+      "labyrinth": 1
+    },
+    {
+      "id": 18,
+      "room_number": 18,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [19, 23],
+      "labyrinth": 1
+    },
+    {
+      "id": 19,
+      "room_number": 19,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [18, 24],
+      "labyrinth": 1
+    },
+    {
+      "id": 20,
+      "room_number": 20,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [15, 25],
+      "labyrinth": 1
+    },
+    {
+      "id": 21,
+      "room_number": 21,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [22],
+      "labyrinth": 1
+    },
+    {
+      "id": 22,
+      "room_number": 22,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [17, 21],
+      "labyrinth": 1
+    },
+    {
+      "id": 23,
+      "room_number": 23,
+      "is_lab_entrance": false,
+      "is_lab_exit": true,
+      "available_exits": [18],
+      "labyrinth": 1
+    },
+    {
+      "id": 24,
+      "room_number": 24,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [19, 25],
+      "labyrinth": 1
+    },
+    {
+      "id": 1,
+      "room_number": 1,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [2],
+      "labyrinth": 1
+    },
+    {
+      "id": 25,
+      "room_number": 25,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [20, 24],
+      "labyrinth": 1
+    }
+  ],
+  "rooms-moyen": [
+    {
+      "id": 30,
+      "room_number": 5,
+      "is_lab_entrance": true,
+      "is_lab_exit": false,
+      "available_exits": [4, 6],
+      "labyrinth": 2
+    },
+    {
+      "id": 27,
+      "room_number": 2,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [1, 3],
+      "labyrinth": 2
+    },
+    {
+      "id": 28,
+      "room_number": 3,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [2, 13],
+      "labyrinth": 2
+    },
+    {
+      "id": 29,
+      "room_number": 4,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [5, 14],
+      "labyrinth": 2
+    },
+    {
+      "id": 104,
+      "room_number": 79,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [69, 80],
+      "labyrinth": 2
+    },
+    {
+      "id": 105,
+      "room_number": 80,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [79, 90],
+      "labyrinth": 2
+    },
+    {
+      "id": 106,
+      "room_number": 81,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [71, 91],
+      "labyrinth": 2
+    },
+    {
+      "id": 107,
+      "room_number": 82,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [72],
+      "labyrinth": 2
+    },
+    {
+      "id": 108,
+      "room_number": 83,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [73, 93],
+      "labyrinth": 2
+    },
+    {
+      "id": 109,
+      "room_number": 84,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [74, 85, 94],
+      "labyrinth": 2
+    },
+    {
+      "id": 110,
+      "room_number": 85,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [75, 84],
+      "labyrinth": 2
+    },
+    {
+      "id": 111,
+      "room_number": 86,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [76, 96],
+      "labyrinth": 2
+    },
+    {
+      "id": 112,
+      "room_number": 87,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [77, 97],
+      "labyrinth": 2
+    },
+    {
+      "id": 113,
+      "room_number": 88,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [78, 89],
+      "labyrinth": 2
+    },
+    {
+      "id": 114,
+      "room_number": 89,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [88, 99],
+      "labyrinth": 2
+    },
+    {
+      "id": 115,
+      "room_number": 90,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [80, 100],
+      "labyrinth": 2
+    },
+    {
+      "id": 116,
+      "room_number": 91,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [81, 92],
+      "labyrinth": 2
+    },
+    {
+      "id": 117,
+      "room_number": 92,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [91, 93],
+      "labyrinth": 2
+    },
+    {
+      "id": 118,
+      "room_number": 93,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [83, 92],
+      "labyrinth": 2
+    },
+    {
+      "id": 31,
+      "room_number": 6,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [5, 7],
+      "labyrinth": 2
+    },
+    {
+      "id": 32,
+      "room_number": 7,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [6, 8],
+      "labyrinth": 2
+    },
+    {
+      "id": 33,
+      "room_number": 8,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [7, 18],
+      "labyrinth": 2
+    },
+    {
+      "id": 34,
+      "room_number": 9,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [10, 19],
+      "labyrinth": 2
+    },
+    {
+      "id": 35,
+      "room_number": 10,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [9],
+      "labyrinth": 2
+    },
+    {
+      "id": 36,
+      "room_number": 11,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [1, 12],
+      "labyrinth": 2
+    },
+    {
+      "id": 37,
+      "room_number": 12,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [11, 22],
+      "labyrinth": 2
+    },
+    {
+      "id": 38,
+      "room_number": 13,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [3, 23],
+      "labyrinth": 2
+    },
+    {
+      "id": 39,
+      "room_number": 14,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [4, 24],
+      "labyrinth": 2
+    },
+    {
+      "id": 40,
+      "room_number": 15,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [16, 25],
+      "labyrinth": 2
+    },
+    {
+      "id": 41,
+      "room_number": 16,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [15, 17],
+      "labyrinth": 2
+    },
+    {
+      "id": 42,
+      "room_number": 17,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [16, 18, 27],
+      "labyrinth": 2
+    },
+    {
+      "id": 43,
+      "room_number": 18,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [8, 17, 28],
+      "labyrinth": 2
+    },
+    {
+      "id": 44,
+      "room_number": 19,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [9, 20],
+      "labyrinth": 2
+    },
+    {
+      "id": 45,
+      "room_number": 20,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [19, 30],
+      "labyrinth": 2
+    },
+    {
+      "id": 46,
+      "room_number": 21,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [22, 31],
+      "labyrinth": 2
+    },
+    {
+      "id": 47,
+      "room_number": 22,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [12, 21],
+      "labyrinth": 2
+    },
+    {
+      "id": 48,
+      "room_number": 23,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [13, 33],
+      "labyrinth": 2
+    },
+    {
+      "id": 49,
+      "room_number": 24,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [14],
+      "labyrinth": 2
+    },
+    {
+      "id": 50,
+      "room_number": 25,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [15, 35],
+      "labyrinth": 2
+    },
+    {
+      "id": 51,
+      "room_number": 26,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [27],
+      "labyrinth": 2
+    },
+    {
+      "id": 52,
+      "room_number": 27,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [17, 26],
+      "labyrinth": 2
+    },
+    {
+      "id": 53,
+      "room_number": 28,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [18, 29],
+      "labyrinth": 2
+    },
+    {
+      "id": 54,
+      "room_number": 29,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [28, 30],
+      "labyrinth": 2
+    },
+    {
+      "id": 55,
+      "room_number": 30,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [20, 29],
+      "labyrinth": 2
+    },
+    {
+      "id": 56,
+      "room_number": 31,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [21],
+      "labyrinth": 2
+    },
+    {
+      "id": 57,
+      "room_number": 32,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [33, 42],
+      "labyrinth": 2
+    },
+    {
+      "id": 58,
+      "room_number": 33,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [23, 32, 34],
+      "labyrinth": 2
+    },
+    {
+      "id": 59,
+      "room_number": 34,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [33, 44],
+      "labyrinth": 2
+    },
+    {
+      "id": 60,
+      "room_number": 35,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [25, 36],
+      "labyrinth": 2
+    },
+    {
+      "id": 61,
+      "room_number": 36,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [35, 46],
+      "labyrinth": 2
+    },
+    {
+      "id": 62,
+      "room_number": 37,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [38, 47],
+      "labyrinth": 2
+    },
+    {
+      "id": 63,
+      "room_number": 38,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [37, 39],
+      "labyrinth": 2
+    },
+    {
+      "id": 64,
+      "room_number": 39,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [38, 40],
+      "labyrinth": 2
+    },
+    {
+      "id": 65,
+      "room_number": 40,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [39, 50],
+      "labyrinth": 2
+    },
+    {
+      "id": 66,
+      "room_number": 41,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [42, 51],
+      "labyrinth": 2
+    },
+    {
+      "id": 119,
+      "room_number": 94,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [84, 95],
+      "labyrinth": 2
+    },
+    {
+      "id": 120,
+      "room_number": 95,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [94],
+      "labyrinth": 2
+    },
+    {
+      "id": 121,
+      "room_number": 96,
+      "is_lab_entrance": false,
+      "is_lab_exit": true,
+      "available_exits": [86],
+      "labyrinth": 2
+    },
+    {
+      "id": 122,
+      "room_number": 97,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [87, 98],
+      "labyrinth": 2
+    },
+    {
+      "id": 123,
+      "room_number": 98,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [97, 99],
+      "labyrinth": 2
+    },
+    {
+      "id": 124,
+      "room_number": 99,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [89, 98],
+      "labyrinth": 2
+    },
+    {
+      "id": 125,
+      "room_number": 100,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [90],
+      "labyrinth": 2
+    },
+    {
+      "id": 78,
+      "room_number": 53,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [54, 63],
+      "labyrinth": 2
+    },
+    {
+      "id": 79,
+      "room_number": 54,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [53, 64],
+      "labyrinth": 2
+    },
+    {
+      "id": 80,
+      "room_number": 55,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [45, 56],
+      "labyrinth": 2
+    },
+    {
+      "id": 81,
+      "room_number": 56,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [55, 46],
+      "labyrinth": 2
+    },
+    {
+      "id": 82,
+      "room_number": 57,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [47, 67],
+      "labyrinth": 2
+    },
+    {
+      "id": 83,
+      "room_number": 58,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [48, 59],
+      "labyrinth": 2
+    },
+    {
+      "id": 84,
+      "room_number": 59,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [58, 49],
+      "labyrinth": 2
+    },
+    {
+      "id": 85,
+      "room_number": 60,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [50, 70],
+      "labyrinth": 2
+    },
+    {
+      "id": 86,
+      "room_number": 61,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [62, 71],
+      "labyrinth": 2
+    },
+    {
+      "id": 87,
+      "room_number": 62,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [52, 61, 63],
+      "labyrinth": 2
+    },
+    {
+      "id": 88,
+      "room_number": 63,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [53, 62],
+      "labyrinth": 2
+    },
+    {
+      "id": 89,
+      "room_number": 64,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [54, 74],
+      "labyrinth": 2
+    },
+    {
+      "id": 90,
+      "room_number": 65,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [66, 75],
+      "labyrinth": 2
+    },
+    {
+      "id": 91,
+      "room_number": 66,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [65, 67],
+      "labyrinth": 2
+    },
+    {
+      "id": 92,
+      "room_number": 67,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [57, 66, 68],
+      "labyrinth": 2
+    },
+    {
+      "id": 93,
+      "room_number": 68,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [67, 78],
+      "labyrinth": 2
+    },
+    {
+      "id": 94,
+      "room_number": 69,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [70, 79],
+      "labyrinth": 2
+    },
+    {
+      "id": 95,
+      "room_number": 70,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [60, 69],
+      "labyrinth": 2
+    },
+    {
+      "id": 96,
+      "room_number": 71,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [61, 81],
+      "labyrinth": 2
+    },
+    {
+      "id": 97,
+      "room_number": 72,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [73, 82],
+      "labyrinth": 2
+    },
+    {
+      "id": 98,
+      "room_number": 73,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [72, 83],
+      "labyrinth": 2
+    },
+    {
+      "id": 99,
+      "room_number": 74,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [64, 84],
+      "labyrinth": 2
+    },
+    {
+      "id": 100,
+      "room_number": 75,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [65, 85],
+      "labyrinth": 2
+    },
+    {
+      "id": 101,
+      "room_number": 76,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [77, 86],
+      "labyrinth": 2
+    },
+    {
+      "id": 102,
+      "room_number": 77,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [76, 87],
+      "labyrinth": 2
+    },
+    {
+      "id": 103,
+      "room_number": 78,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [68, 88],
+      "labyrinth": 2
+    },
+    {
+      "id": 67,
+      "room_number": 42,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [32, 41],
+      "labyrinth": 2
+    },
+    {
+      "id": 68,
+      "room_number": 43,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [44],
+      "labyrinth": 2
+    },
+    {
+      "id": 69,
+      "room_number": 44,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [34, 43, 45],
+      "labyrinth": 2
+    },
+    {
+      "id": 70,
+      "room_number": 45,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [44, 55],
+      "labyrinth": 2
+    },
+    {
+      "id": 71,
+      "room_number": 46,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [36, 56],
+      "labyrinth": 2
+    },
+    {
+      "id": 72,
+      "room_number": 47,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [37, 57],
+      "labyrinth": 2
+    },
+    {
+      "id": 73,
+      "room_number": 48,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [58],
+      "labyrinth": 2
+    },
+    {
+      "id": 74,
+      "room_number": 49,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [50, 59],
+      "labyrinth": 2
+    },
+    {
+      "id": 75,
+      "room_number": 50,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [40, 49, 60],
+      "labyrinth": 2
+    },
+    {
+      "id": 76,
+      "room_number": 51,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [41, 52],
+      "labyrinth": 2
+    },
+    {
+      "id": 26,
+      "room_number": 1,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [2, 11],
+      "labyrinth": 2
+    },
+    {
+      "id": 77,
+      "room_number": 52,
+      "is_lab_entrance": false,
+      "is_lab_exit": false,
+      "available_exits": [51, 62],
+      "labyrinth": 2
     }
   ]
 }

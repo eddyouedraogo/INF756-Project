@@ -1,4 +1,4 @@
-const fetchLabyrinths = async () => {
+export const fetchLabyrinths = async () => {
   const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}v1/labyrinths`);
   if (!response.ok) {
     throw new Error('Error');
@@ -10,4 +10,14 @@ const fetchLabyrinths = async () => {
   return data;
 };
 
-export default fetchLabyrinths;
+export const fetchLabyrinthBySize = async (size) => {
+  const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}v1/labyrinth?size=${size}`);
+  if (!response.ok) {
+    throw new Error('Error');
+  }
+  await new Promise((r) => {
+    setTimeout(r, 2000);
+  });
+  const data = await response.json();
+  return data;
+};
