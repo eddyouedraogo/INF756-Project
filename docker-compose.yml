@@ -25,6 +25,15 @@ services:
     volumes:
       - pgadmin-data:/var/lib/pgadmin
 
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server
+    volumes:
+      - redis:/data
+
   intelligence:
     image: intelligence
     command: bash -c "python manage.py makemigrations intelligence && python manage.py migrate && python manage.py loaddata intelligence && python manage.py runserver 0.0.0.0:8000"
@@ -59,9 +68,12 @@ services:
       - "8080:8080"
     depends_on:
       - db
+      - redis
     restart: on-failure
   
 volumes:
   db:
   local_pgdata:
   pgadmin-data:
+  redis:
+    driver: local

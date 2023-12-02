@@ -19,9 +19,9 @@ def get_intelligences():
 def get_action_rule_for_rule_set(rule_set_id):
     rule_set = RuleSet.objects.get(id=rule_set_id);
 
-    data = ActionRuleItem.objects.filter(ruleSet=rule_set)
+    data = ActionRuleItem.objects.filter(ruleSet=rule_set).first()
 
-    return ActionRuleItemSerializer(data, many=True).data
+    return ActionRuleItemSerializer(data).data
 
 def get_objective_rule_for_rule_set(rule_set_id):
     rule_set = RuleSet.objects.get(id=rule_set_id);
