@@ -1,5 +1,5 @@
 const lauchSimulation = async (data) => {
-  const response = await fetch(`${process.env.REACT_APP_SIMULATION_API_BASE_URL}/simulation`, {
+  const response = await fetch(`${process.env.REACT_APP_SIMULATION_API_BASE_URL}simulation/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -10,7 +10,7 @@ const lauchSimulation = async (data) => {
     throw new Error('Error');
   }
   await new Promise((r) => {
-    setTimeout(r, 5000);
+    setTimeout(r, 500);
   });
   const result = await response.json();
   return result;

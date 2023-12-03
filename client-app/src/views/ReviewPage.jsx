@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Grid,
   SpaceBetween,
@@ -13,12 +13,33 @@ import { Link } from 'react-router-dom';
 import CustumLayout from '../layout';
 import ItemDescription from '../components/rules/ItemDescription';
 import ObjectiveList from '../components/objectives/List';
+import { fetchLabyrinthBySize } from '../services/labyrinths/labyrinths';
+import { setMousesInit } from '../redux/reducers/LabyrinthReducer';
 
 export default function ReviewPage() {
+  const dispatch = useDispatch();
   const selectedLabyrinth = useSelector((state) => state.labyrinth.selected);
   const selectedStupid = useSelector((state) => state.mouse.selected_stupid);
   const selectedSmart = useSelector((state) => state.mouse.selected_smart);
   const selectedRuleItems = useSelector((state) => state.rule.selected);
+
+  useEffect(() => {
+    const fetchDataAndInitializeMouseStatus = async () => {
+      const size = selectedLabyrinth.label.split('-')[1].trim();
+      const rooms = await fetchLabyrinthBySize(size);
+      // Now you can access the updated state
+      const labEntranceRoom = rooms.find((room) => room.is_lab_entrance);
+      const totalMouse = selectedSmart.length + selectedStupid.length;
+      const mouseStatusNew = Array.from({ length: totalMouse }, (_, index) => ({
+        id: index + 1,
+        room: labEntranceRoom.room_number
+      }));
+
+      dispatch(setMousesInit(mouseStatusNew));
+    };
+
+    fetchDataAndInitializeMouseStatus();
+  }, []);
 
   return (
     <CustumLayout title='Etape 2' subtitle='Résumé de vos sélections'>

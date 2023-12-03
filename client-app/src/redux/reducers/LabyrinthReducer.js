@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchLabData } from '../actions/labyrithns';
@@ -6,7 +7,7 @@ const initialState = {
   list: [],
   selected: undefined,
   loading: 'loading',
-  selectedRoomNumber: 0,
+  mouses: [],
   error: null
 };
 
@@ -17,8 +18,13 @@ const labyrinthslice = createSlice({
     setLabyrinth: (state, action) => {
       state.selected = action.payload;
     },
-    setSelectedRoomNumber: (state, action) => {
-      state.selectedRoomNumber = action.payload;
+    setMousesInit: (state, action) => {
+      state.mouses = action.payload;
+    },
+    setMouses: (state, action) => {
+      const { id, current_room } = action.payload;
+      const existingMouseIndex = state.mouses.findIndex((mouse) => mouse.id === id);
+      state.mouses[existingMouseIndex].room = current_room;
     }
   },
   extraReducers: (builder) => {
@@ -38,6 +44,6 @@ const labyrinthslice = createSlice({
   }
 });
 
-export const { setLabyrinth, setSelectedRoomNumber } = labyrinthslice.actions;
+export const { setLabyrinth, setMousesInit, setMouses } = labyrinthslice.actions;
 
 export default labyrinthslice.reducer;

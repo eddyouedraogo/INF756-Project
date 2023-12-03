@@ -6,7 +6,7 @@ export const fetchLabyrinths = async () => {
   await new Promise((r) => {
     setTimeout(r, 500);
   });
-  const data = await response.json();
+  const data = response.json();
   return data;
 };
 
@@ -18,8 +18,8 @@ export const fetchLabyrinthBySize = async (size) => {
     throw new Error('Error');
   }
   await new Promise((r) => {
-    setTimeout(r, 500);
+    setTimeout(r, 1000);
   });
-  const data = await response.json();
+  const data = response.json();
   return data;
 };

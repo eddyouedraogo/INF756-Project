@@ -1,8 +1,12 @@
+/* eslint-disable no-console */
+/* eslint-disable camelcase */
+/* eslint-disable no-case-declarations */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-continue */
 /* eslint-disable no-restricted-syntax */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Grid,
@@ -14,33 +18,78 @@ import {
 } from '@cloudscape-design/components';
 import { Link, useNavigate } from 'react-router-dom';
 import CustumLayout from '../layout';
-import { fetchRoomData } from '../redux/actions/labyrithns';
-import { setSelectedRoomNumber } from '../redux/reducers/LabyrinthReducer';
+import { fetchLabyrinthBySize } from '../services/labyrinths/labyrinths';
+import { setMouses } from '../redux/reducers/LabyrinthReducer';
 import Labyrinth from '../components/labyrinths/Labyrinth';
 
 export default function SimulationPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const selectedLabyrinth = useSelector((state) => state.labyrinth.selected);
-  const rooms = useSelector((state) => state.rooms.list);
-  const loading = useSelector((state) => state.rooms.loading);
-  // const selectedRoomNumber = useSelector((state) => state.labyrinth.selectedRoomNumber);
+  const selectedStupid = useSelector((state) => state.mouse.selected_stupid);
+  const selectedSmart = useSelector((state) => state.mouse.selected_smart);
+  const selectedRuleItems = useSelector((state) => state.rule.selected);
+  const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(null);
+  const [message, setMessage] = useState([]);
+
+  const formatLogMessage = (mouse) => {
+    const { id, health, mental, current_room } = mouse;
+    const messageText = `
+    La souris ${id} a été mise à jour :
+    - Santé: ${health}
+    - Mental: ${mental}
+    - Pièce actuelle: ${current_room}
+  `;
+    setMessage((prevMessage) => [messageText, ...prevMessage]);
+  };
+
+  const updateLabyrith = (data) => {
+    dispatch(setMouses(data));
+    formatLogMessage(data);
+  };
 
   useEffect(() => {
     try {
+      const payload = {
+        mouses_intelligence: [
+          { intelligence_id: 4, number_of_mouses: selectedSmart.length },
+          { intelligence_id: 1, number_of_mouses: selectedStupid.length }
+        ],
+        labyrinth_id: selectedLabyrinth?.value,
+        ruleSet_id: selectedRuleItems[0].id
+      };
       const size = selectedLabyrinth.label.split('-')[1].trim();
-      dispatch(fetchRoomData(size));
-      const entranceRoom = rooms.find((room) => room.is_lab_entrance);
-      dispatch(setSelectedRoomNumber(entranceRoom.room_number));
+      const fetchDataAndInitializeMouseStatus = async () => {
+        setLoading('loading');
+        const result = await fetchLabyrinthBySize(size);
+        setRooms(result);
+        setLoading('finished');
+        const socket = new WebSocket(`ws://localhost:8080/ws/sim/${size}/`);
+        socket.onopen = () => {
+          console.log('Successfully connected to simulation server.');
+          socket.send(JSON.stringify(payload));
+        };
+        socket.onmessage = (e) => {
+          const data = JSON.parse(e.data);
+          switch (data.type) {
+            case 'info':
+              setMessage((prevMessage) => [data.message, ...prevMessage]);
+              break;
+            case 'mouse_status':
+              updateLabyrith(data.mouse);
+              break;
+            default:
+              break;
+          }
+        };
+      };
+      fetchDataAndInitializeMouseStatus();
     } catch (error) {
+      console.error('Error fetching data:', error);
       navigate('/');
     }
-  }, [dispatch]);
-
-  const updateRoom = () => {
-    const randomRoomNumber = Math.floor(Math.random() * (rooms.length - 1 + 1) + 1);
-    dispatch(setSelectedRoomNumber(randomRoomNumber));
-  };
+  }, []);
 
   return (
     <CustumLayout>
@@ -58,48 +107,26 @@ export default function SimulationPage() {
           <Box textAlign='center' margin={{ top: 'xxxl' }}>
             <div
               style={{
-                minHeight: '550px',
                 backgroundColor: '#ccc',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                overflowX: 'auto',
                 height: '50vh',
                 margin: '0'
               }}
             >
               <TextContent>
                 <ul style={{ fontSize: '15px' }}>
-                  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                  <li>Nullam convallis orci ac odio dapibus, nec fringilla turpis interdum.</li>
-                  <li>
-                    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                    turpis egestas.
-                  </li>
-                  <li>Curabitur vel est vel eros ultrices tincidunt at ut purus.</li>
-                  <li>Nunc euismod augue et orci varius, at commodo lectus facilisis.</li>
-                  <li>Ut eu augue in justo efficitur commodo nec a ligula.</li>
-                  <li>Maecenas sed erat sed ligula cursus vehicula.</li>
-                  <li>Proin cursus eros eget quam ullamcorper, vel venenatis nisl bibendum.</li>
-                  <li>Vivamus congue urna et felis bibendum, vel fermentum mi dapibus.</li>
-                  <li>Sed auctor odio id risus sodales efficitur.</li>
-                  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                  <li>Nullam convallis orci ac odio dapibus, nec fringilla turpis interdum.</li>
-                  <li>
-                    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                    turpis egestas.
-                  </li>
+                  {message.map((item) => (
+                    <li key={Math.random()}>{item}</li>
+                  ))}
                 </ul>
               </TextContent>
             </div>
           </Box>
         </Grid>
         <Box textAlign='center'>
-          <SpaceBetween direction='horizontal' size='xxl'>
-            <Button onClick={updateRoom}>Simuler le déplacement </Button>
-            <Link to='/'>
-              <Button>Quitter</Button>
-            </Link>
-          </SpaceBetween>
+          <Link to='/'>
+            <Button>Quitter</Button>
+          </Link>
         </Box>
       </SpaceBetween>
     </CustumLayout>

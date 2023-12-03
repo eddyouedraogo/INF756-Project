@@ -4,7 +4,7 @@ const fetchRules = async () => {
     throw new Error('Error');
   }
   await new Promise((r) => {
-    setTimeout(r, 2000);
+    setTimeout(r, 500);
   });
   const data = await response.json();
   return data;
