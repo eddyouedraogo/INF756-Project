@@ -36,7 +36,6 @@ CORS_EXPOSE_HEADERS = default_headers
 INSTALLED_APPS = [
     'objects',
     'corsheaders',
-    'rest_framework_swagger',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
