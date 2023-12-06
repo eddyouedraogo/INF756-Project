@@ -55,7 +55,7 @@ export default function SimulationPage() {
   };
 
   function exportLog() {
-    const mywindow = window.open('', 'PRINT', 'height=400,width=600');
+    const mywindow = window.open('', 'PRINT');
     mywindow.document.write(`<html><head><title>${document.title}</title>`);
     mywindow.document.write('</head><body >');
     mywindow.document.write(`<h1>${document.title.toUpperCase()} - Résultat de la simulation</h1>`);
