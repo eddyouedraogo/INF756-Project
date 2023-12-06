@@ -8,6 +8,7 @@ const initialState = {
   selected: undefined,
   loading: 'loading',
   mouses: [],
+  objectivesStatus: [],
   error: null
 };
 
@@ -20,6 +21,13 @@ const labyrinthslice = createSlice({
     },
     setMousesInit: (state, action) => {
       state.mouses = action.payload;
+    },
+    setObjectifStatus: (state, action) => {
+      const { id, objective_consumed, current_room } = action.payload;
+      if (objective_consumed) {
+        console.log(true);
+        state.objectivesStatus.unshift({ id, room: current_room });
+      }
     },
     setMouses: (state, action) => {
       const { id, current_room } = action.payload;
@@ -44,6 +52,6 @@ const labyrinthslice = createSlice({
   }
 });
 
-export const { setLabyrinth, setMousesInit, setMouses } = labyrinthslice.actions;
+export const { setLabyrinth, setMousesInit, setObjectifStatus, setMouses } = labyrinthslice.actions;
 
 export default labyrinthslice.reducer;

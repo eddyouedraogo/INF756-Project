@@ -8,6 +8,9 @@ export default function Room({ room, size }) {
   const { room_number, is_lab_entrance, is_lab_exit, available_exits, objective_id } = room;
   const imageSource = `/objectives/${getObjectiveId(objective_id)}`;
   const mouses = useSelector((state) => state.labyrinth.mouses);
+  const objectivesStatus = useSelector((state) => state.labyrinth.objectivesStatus);
+
+  const isObjectiveCompleted = objectivesStatus.some((obj) => obj.room === room_number);
 
   const roomClassNames = `${size >= 10 ? 'room-small' : 'room'} ${
     is_lab_entrance ? 'no-top-border' : ''
@@ -26,9 +29,12 @@ export default function Room({ room, size }) {
               key={Math.random()}
               src={`/rat_${index + 1}.png`}
               alt=''
-              style={{ width: '30%', height: '30%' }}
+              style={{ width: '50%', height: '50%' }}
             />
           )
+      )}
+      {!isObjectiveCompleted && objective_id && (
+        <img src={imageSource} alt='' style={{ width: '50%', height: '50%' }} />
       )}
     </button>
   );

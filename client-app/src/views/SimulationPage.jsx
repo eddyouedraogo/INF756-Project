@@ -19,7 +19,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom';
 import CustumLayout from '../layout';
 import { fetchLabyrinthBySize } from '../services/labyrinths/labyrinths';
-import { setMouses } from '../redux/reducers/LabyrinthReducer';
+import { setMouses, setObjectifStatus } from '../redux/reducers/LabyrinthReducer';
 import Labyrinth from '../components/labyrinths/Labyrinth';
 
 export default function SimulationPage() {
@@ -34,18 +34,20 @@ export default function SimulationPage() {
   const [message, setMessage] = useState([]);
 
   const formatLogMessage = (mouse) => {
-    const { id, health, mental, current_room } = mouse;
+    const { id, health, mental, current_room, objective_consumed } = mouse;
     const messageText = `
     La souris ${id} a été mise à jour :
     - Santé: ${health}
     - Mental: ${mental}
     - Pièce actuelle: ${current_room}
+    - Objectif consommé: ${objective_consumed ? `Oui` : `Non`}
   `;
     setMessage((prevMessage) => [messageText, ...prevMessage]);
   };
 
   const updateLabyrith = (data) => {
     dispatch(setMouses(data));
+    dispatch(setObjectifStatus(data));
     formatLogMessage(data);
   };
 
