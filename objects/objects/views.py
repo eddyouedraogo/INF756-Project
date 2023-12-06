@@ -68,7 +68,7 @@ class RoomObjectiveView(APIView):
         labyrinth_id = request.query_params.get('labyrinth_id')
         if labyrinth_id:
             rooms = load_labyrinth_for_id(labyrinth_id)
-            room_ids = [room.id for room in rooms]
+            room_ids = [room.get("id") for room in rooms]
             rooms_objectives = RoomObjective.objects.filter(room_id__in=room_ids)
         else:
             rooms_objectives = RoomObjective.objects.all().values()

@@ -14,11 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# from django.conf.urls import *
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_swagger.views import get_swagger_view
 from objects.views import *
 
+schema_view = get_swagger_view(title='Simulus Object API')
+
 urlpatterns = [
+    # url(r'^$', schema_view),
     path('admin/', admin.site.urls),
     # path('', include('routers')), Change this router to reflect the one below
     path('objective/', ObjectiveView.as_view()),

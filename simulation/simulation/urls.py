@@ -14,11 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# from django.conf.urls import *
 from django.contrib import admin
 from django.urls import path
+from rest_framework_swagger.views import get_swagger_view
 from .views import *
 
+schema_view = get_swagger_view(title='Simulus Simulation API')
+
 urlpatterns = [
+    # url(r'^$', schema_view),
     path('admin/', admin.site.urls),
     path('ruleSet/', RuleSetView.as_view()),
     path('ruleItem/', RuleItemView.as_view()),

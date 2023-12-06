@@ -91,14 +91,6 @@
         "model": "objects.labyrinth",
         "pk": 2,
         "fields" : {
-            "name": "Average Maze",
-            "size": "Moyen"
-        }
-    },
-    {
-        "model": "objects.labyrinth",
-        "pk": 3,
-        "fields" : {
             "name": "Big Maze",
             "size": "Grand"
         }

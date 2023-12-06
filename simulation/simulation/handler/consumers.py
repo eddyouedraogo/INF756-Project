@@ -65,6 +65,22 @@ class SimulationConsumer(WebsocketConsumer):
             }
         ))
 
+    def send_death_msg(self, mouse):
+        self.send(text_data=json.dumps(
+            {
+                "type": "dead",
+                "mouse": mouse.id
+            }
+        ))
+
+    def send_exit_found_msg(self, mouse):
+        self.send(text_data=json.dumps(
+            {
+                "type": "exit_found",
+                "mouse": mouse.id
+            }
+        ))
+
     def send_mouse_status(self, mouse):
         self.send(
             text_data=json.dumps(
@@ -148,6 +164,7 @@ class SimulationConsumer(WebsocketConsumer):
                             objective_rules
                         ))
                 th_dfs.start()
+                th_dfs.join()
             
             elif mouse.intelligence >= 4 : 
                 self.send_info_msg(f"Assigning BFS to mouse {mouse.id}")
@@ -158,6 +175,7 @@ class SimulationConsumer(WebsocketConsumer):
                     target=self.bfs_intelligence,
                     args=(visited_bfs, labyrinth, lab_entrance, queue_bfs, mouse, action_rules, objective_rules))
                 th_bfs.start()
+                th_bfs.join()
             
             elif mouse.intelligence >= 0 :
                 visited_low_intelligence = []
@@ -166,6 +184,7 @@ class SimulationConsumer(WebsocketConsumer):
                     args=(visited_low_intelligence, labyrinth, lab_entrance, False, mouse, action_rules, objective_rules)
                     )
                 th_low.start()
+                th_low.join()
 
             elif mouse.intelligence > 10:
                 self.send_info_msg(f"Mouse {mouse.id} is cheating")
@@ -179,22 +198,24 @@ class SimulationConsumer(WebsocketConsumer):
                         objective_rules
                         ))
                 th_cheating.start()
+                th_cheating.join()
 
 
 
     def dfs_intelligence(self, visited, labyrinth, room, parent, parents, exit_found, mouse, action_rules, objective_rules):
-        if (room.get("room_number") not in visited):
+        if (room.get("room_number") not in visited and not exit_found):
             parents.append(parent)
+            print("DFS health 1", mouse.health)
             
             mouse_dead = self.ask_mouth_to_take_a_step( mouse, visited, room, action_rules, objective_rules)
 
             if room.get("is_lab_exit"):
                 exit_found = True
-                self.send_info_msg(f"Mouse {mouse.id} has reached exit")
+                self.send_exit_found_msg(mouse)
                 return exit_found
             elif mouse_dead:
                 mouse_dead = True
-                self.send_info_msg(f"Mouse {mouse.id} is dead")
+                self.send_death_msg( mouse)
                 return mouse_dead
             else:
                 available_exits_ids = room.get("available_exits")
@@ -208,16 +229,16 @@ class SimulationConsumer(WebsocketConsumer):
                     
                     if next_room and not exit_found and not mouse_dead: 
                         exit_found = self.dfs_intelligence(visited, labyrinth, next_room, room, parents, exit_found, mouse, action_rules, objective_rules)
-                    return exit_found or mouse_dead
+                    return exit_found or (mouse.health == 0)
                 
                 else: 
-                    
                     for next_room in available_exits:
-                        if not exit_found and not mouse_dead:
+                        if not exit_found and (mouse.health > 0):
+                            print("DFS health 2", mouse.health)
                             # node = next_room.get("room_number")
                             exit_found = self.dfs_intelligence(visited, labyrinth, next_room, room, parents, exit_found, mouse, action_rules, objective_rules)
-                    return exit_found
-        return exit_found
+                    return exit_found or (mouse.health == 0)
+        return exit_found or (mouse.health == 0)
     
     def dfs_backtrack(self, visited, labyrinth, parents, mouse, action_rules, objective_rules): 
         current_parent = parents.pop()
@@ -225,7 +246,7 @@ class SimulationConsumer(WebsocketConsumer):
         mouse_dead = self.ask_mouth_to_take_a_step(mouse, visited, current_parent, action_rules, objective_rules)
 
         if mouse_dead:
-            return
+            return 
         
     
         available_exits_ids = current_parent.get("available_exits")
@@ -262,7 +283,7 @@ class SimulationConsumer(WebsocketConsumer):
 
             for next_room in available_exits:
                 print("Next Room is ", next_room.get("room_number"))
-                if next_room.get("room_number") not in visited:
+                if next_room.get("room_number") not in visited and not mouse_dead:
                     mouse_dead = self.ask_mouth_to_take_a_step(mouse, visited, current_room, action_rules, objective_rules)
                     mouse_dead = self.ask_mouth_to_take_a_step(mouse, visited, next_room, action_rules, objective_rules)
 
@@ -270,6 +291,7 @@ class SimulationConsumer(WebsocketConsumer):
                 
                     if next_room.get("is_lab_exit"):
                         exit_found = True
+                        self.send_exit_found_msg(mouse)
                         break
 
     def bfs_backtracking(self,mouse, visited, backtrack_to_room, action_rules, objective_rules, labyrinth):
@@ -328,18 +350,18 @@ class SimulationConsumer(WebsocketConsumer):
                 return room
 
     def ask_mouth_to_take_a_step(self, mouse, visited, room, action_rules, objective_rules ):
-        mouse_dead = False
         mouse.take_step(room, action_rules, objective_rules)
         visited.append(room.get("room_number"))
         if mouse.health == 0:
             self.send_mouse_status(mouse)
-            self.send_info_msg(f"Mouse {mouse.id} is dead")
+            self.send_death_msg( mouse)
             mouse_dead = True
         else:
             self.send_mouse_status(mouse)
             mouse_dead = False
-            mouse_speed = 20 - mouse.health
-            time.sleep(mouse_speed)
+            # mouse_speed = 20 - mouse.health
+            # time.sleep(mouse_speed)
+            time.sleep(0.5)
         return mouse_dead
         
 
@@ -348,30 +370,27 @@ class SimulationConsumer(WebsocketConsumer):
         for room in route:
             mouse_dead = self.ask_mouth_to_take_a_step(self, mouse, [], room, action_rules, objective_rules )
             if mouse_dead:
-                break
-        self.send_info_msg(f"Mouse {mouse.id} has reached exit")
+                return True
+        self.send_exit_found_msg(mouse)
 
     def low_intelligence_mouse(self, visited, labyrinth, room, exit_found, mouse, action_rules, objective_rules):
+        if not room :
+            return
+        
         mouse_dead = self.ask_mouth_to_take_a_step( mouse, visited, room, action_rules, objective_rules)
 
         if room.get("is_lab_exit"):
             exit_found = True
-            self.send_info_msg(f"Mouse {mouse.id} has reached exit")
+            self.send_exit_found_msg(mouse)
             return exit_found
             
         elif mouse_dead:
             mouse_dead = True
-            self.send_info_msg(f"Mouse {mouse.id} is dead")
+            self.send_death_msg( mouse)
             return mouse_dead
         
         available_exits_ids = room.get("available_exits")
         available_exits = self.get_room_from_number(available_exits_ids, labyrinth)
-        for next_room in available_exits:
-            if(
-                self.low_intelligence_mouse
-                (visited, labyrinth, next_room, exit_found, mouse, action_rules, objective_rules)
-            ):
-                break
-            return True
-            
+        next_room = available_exits[0]
+        self.low_intelligence_mouse(visited, labyrinth, next_room, exit_found, mouse, action_rules, objective_rules)
             

@@ -15,14 +15,6 @@
             "description": "Cet ensemble de règles est complexe et rend la simulation difficile pour la souris"
         }
     },
-    {
-        "model": "simulation.ruleset",
-        "pk": 3,
-        "fields" : {
-            "name": "Ensemble TP",
-            "description": "Cet ensemble de règles est celui donné dans l'ennoncé du TP"
-        }
-    },
     
     {
         "model": "simulation.ruleitem",
