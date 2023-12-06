@@ -32,6 +32,9 @@ export default function SimulationPage() {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(null);
   const [message, setMessage] = useState([]);
+  const [inProgress, setInProgress] = useState(false);
+
+  let nbMouseDeadExitFound = 0;
 
   const formatLogMessage = (mouse) => {
     const { id, health, mental, current_room, objective_consumed } = mouse;
@@ -55,8 +58,8 @@ export default function SimulationPage() {
     try {
       const payload = {
         mouses_intelligence: [
-          { intelligence_id: 4, number_of_mouses: selectedSmart.length },
-          { intelligence_id: 1, number_of_mouses: selectedStupid.length }
+          { intelligence_id: 1, number_of_mouses: selectedSmart.length },
+          { intelligence_id: 2, number_of_mouses: selectedStupid.length }
         ],
         labyrinth_id: selectedLabyrinth?.value,
         ruleSet_id: selectedRuleItems[0].id
@@ -70,6 +73,7 @@ export default function SimulationPage() {
         const socket = new WebSocket(`ws://localhost:8080/ws/sim/${size}/`);
         socket.onopen = () => {
           console.log('Successfully connected to simulation server.');
+          setInProgress(true);
           socket.send(JSON.stringify(payload));
         };
         socket.onmessage = (e) => {
@@ -80,6 +84,13 @@ export default function SimulationPage() {
               break;
             case 'mouse_status':
               updateLabyrith(data.mouse);
+              break;
+            case 'exit_found':
+            case 'dead':
+              nbMouseDeadExitFound += 1;
+              if (nbMouseDeadExitFound === selectedStupid.length + selectedSmart.length) {
+                setInProgress(false);
+              }
               break;
             default:
               break;
@@ -96,6 +107,18 @@ export default function SimulationPage() {
   return (
     <CustumLayout>
       <SpaceBetween size='xxs'>
+        <Box textAlign='center'>
+          <div
+            style={{
+              backgroundColor: '#ccc',
+              overflowX: 'auto',
+              height: '2vh',
+              margin: '0'
+            }}
+          >
+            {inProgress ? 'Simulation en cours ..' : 'Simulation terminé'}
+          </div>
+        </Box>
         <Grid gridDefinition={[{ colspan: 7 }, { colspan: 5 }]}>
           <div>
             {loading === 'finished' ? (

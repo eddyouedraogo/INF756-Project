@@ -21,7 +21,6 @@ export default function Room({ room, size }) {
   } ${available_exits.includes(room_number - size) ? 'no-top-border' : ''}`;
   return (
     <button type='button' className={roomClassNames}>
-      {room_number}
       {mouses.map(
         (mouse, index) =>
           mouse.room === room_number && (

@@ -25,7 +25,6 @@ const labyrinthslice = createSlice({
     setObjectifStatus: (state, action) => {
       const { id, objective_consumed, current_room } = action.payload;
       if (objective_consumed) {
-        console.log(true);
         state.objectivesStatus.unshift({ id, room: current_room });
       }
     },
