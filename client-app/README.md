@@ -1,13 +1,16 @@
 # Simulateur client
 
-Simulateur de vol piloté par une IA
+Simulateur de comportement des souris dans un labyrinthe
 
 ## Prérequis
 
-1. Installez les dépendances en exécutant `npm install` ou `yarn install`
-2. Renommez `.env.example` en `.env` et renseignez `REACT_APP_API_BASE_URL`
+1. Assurez-vous que `NodeJs 20` est installé sur votre machine 
+2. Vous pouvez vérifier en utilisant la commande `node --version`
+3. Ensuite, naviguez dans le dossier du projet, plus précisément dans le dossier  `client-app` via le terminal ou l'invite de commandes
+4. Installez les dépendances en exécutant `npm install` ou `yarn install`
+5. Renommez `.env.example` en `.env`
 
-## JSON Server
+## JSON Mock Server (faculatif si les serveurs réels sont disponibles)
 
 Au cas où l'API principale ne serait pas disponible ou prête, vous pouvez utiliser l'outil json-server pour tester l'application.
 
@@ -21,4 +24,4 @@ Suivez les étapes suivantes pour installer json-server :
 
 Exécutez la commande suivante dans le terminal : `npm start`
 
-Cliquez sur [http://localhost:3000](http://localhost:3000) pour l'afficher dans votre navigateur.
+Cliquez sur [http://localhost:3000](http://localhost:3000) pour l'afficher dans votre navigateur ou utiliser la version bureau.

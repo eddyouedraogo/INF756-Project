@@ -16,7 +16,10 @@ export default function CustumLayout({ children, title, subtitle }) {
         <ContentLayout
           header={
             <SpaceBetween size='m'>
-              <Header variant='h1' description='Simulateur de vol piloté par IA '>
+              <Header
+                variant='h1'
+                description='Simulateur de comportement des souris dans un labyrinthe'
+              >
                 Simulus
               </Header>
             </SpaceBetween>
