@@ -4,9 +4,9 @@ Simulateur de comportement des souris dans un labyrinthe
 
 ## Prérequis
 
-1. Assurez-vous que `NodeJs 20` est installé sur votre machine 
+1. Assurez-vous que `NodeJs 20` est installé sur votre machine
 2. Vous pouvez vérifier en utilisant la commande `node --version`
-3. Ensuite, naviguez dans le dossier du projet, plus précisément dans le dossier  `client-app` via le terminal ou l'invite de commandes
+3. Ensuite, naviguez dans le dossier du projet, plus précisément dans le dossier `client-app` via le terminal ou l'invite de commandes
 4. Installez les dépendances en exécutant `npm install` ou `yarn install`
 5. Renommez `.env.example` en `.env`
 
