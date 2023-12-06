@@ -17,13 +17,21 @@ Including another URLconf
 # from django.conf.urls import *
 from django.contrib import admin
 from django.urls import path
+from drf_yasg.views import get_schema_view
 from rest_framework_swagger.views import get_swagger_view
 from .views import *
+from drf_yasg import openapi
+from rest_framework import permissions
 
-schema_view = get_swagger_view(title='Simulus Simulation API')
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Simulus Simulation",
+        default_version='v1',),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
-    # url(r'^$', schema_view),
     path('admin/', admin.site.urls),
     path('ruleSet/', RuleSetView.as_view()),
     path('ruleItem/', RuleItemView.as_view()),
@@ -31,4 +39,5 @@ urlpatterns = [
     path('objectiveRule/', ObjectiveRuleItemtView.as_view()),
     path('simulation/', SimulationView.as_view()),
     path('ruleSetItems/', RuleSetAndItemView.as_view()),
+    path("", schema_view.with_ui('swagger', cache_timeout=0),name='schema-swagger-ui'),
 ]

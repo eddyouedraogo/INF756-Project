@@ -14,16 +14,25 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-# from django.conf.urls import *
-from django.contrib import admin
-from django.urls import path
-from rest_framework_swagger.views import get_swagger_view
-from .views import IntelligenceView
 
-schema_view = get_swagger_view(title='Simulus Intelligence API')
+from django.contrib import admin
+from django.urls import path,include
+from drf_yasg.views import get_schema_view
+from .views import IntelligenceView
+from drf_yasg import openapi
+from rest_framework import permissions
+
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Simulus Intelligence",
+        default_version='v1',),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
-    # url(r'^$', schema_view),
     path('admin/', admin.site.urls),
     path('intelligence/', IntelligenceView.as_view()),
+    path("", schema_view.with_ui('swagger', cache_timeout=0),name='schema-swagger-ui'),
 ]

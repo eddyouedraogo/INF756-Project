@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'channels',
     'daphne',
     'rest_framework_swagger',
+    'rest_framework',
+    'drf_yasg',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
