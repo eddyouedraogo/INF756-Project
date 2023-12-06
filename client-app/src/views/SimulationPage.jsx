@@ -32,7 +32,7 @@ export default function SimulationPage() {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(null);
   const [message, setMessage] = useState([]);
-  const [inProgress, setInProgress] = useState(false);
+  const [inProgress, setInProgress] = useState(true);
 
   let nbMouseDeadExitFound = 0;
 
@@ -54,16 +54,40 @@ export default function SimulationPage() {
     formatLogMessage(data);
   };
 
+  function exportLog() {
+    const mywindow = window.open('', 'PRINT', 'height=400,width=600');
+    mywindow.document.write(`<html><head><title>${document.title}</title>`);
+    mywindow.document.write('</head><body >');
+    mywindow.document.write(`<h1>${document.title.toUpperCase()} - Résultat de la simulation</h1>`);
+    mywindow.document.write(document.getElementById('content').innerHTML);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close(); // necessary for IE >= 10
+    mywindow.focus(); // necessary for IE >= 10*/
+
+    mywindow.print();
+    mywindow.close();
+
+    return true;
+  }
+
   useEffect(() => {
     try {
       const payload = {
         mouses_intelligence: [
-          { intelligence_id: 1, number_of_mouses: selectedSmart.length },
-          { intelligence_id: 2, number_of_mouses: selectedStupid.length }
+          {
+            intelligence_id: process.env.REACT_APP_INTELLIGENCE_SMART_ID,
+            number_of_mouses: selectedSmart.length
+          },
+          {
+            intelligence_id: process.env.REACT_APP_INTELLIGENCE_STUPID,
+            number_of_mouses: selectedStupid.length
+          }
         ],
         labyrinth_id: selectedLabyrinth?.value,
         ruleSet_id: selectedRuleItems[0].id
       };
+      console.log(payload);
       const size = selectedLabyrinth.label.split('-')[1].trim();
       const fetchDataAndInitializeMouseStatus = async () => {
         setLoading('loading');
@@ -137,6 +161,7 @@ export default function SimulationPage() {
                 height: '50vh',
                 margin: '0'
               }}
+              id='content'
             >
               <TextContent>
                 <ul style={{ fontSize: '15px' }}>
@@ -146,6 +171,13 @@ export default function SimulationPage() {
                 </ul>
               </TextContent>
             </div>
+            {!inProgress && (
+              <Box textAlign='center' margin='xl'>
+                <Button onClick={() => exportLog()} variant='secondary'>
+                  Exporter le resultat
+                </Button>
+              </Box>
+            )}
           </Box>
         </Grid>
         <Box textAlign='center'>
