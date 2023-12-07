@@ -76,11 +76,11 @@ export default function SimulationPage() {
       const payload = {
         mouses_intelligence: [
           {
-            intelligence_id: process.env.REACT_APP_INTELLIGENCE_SMART_ID,
+            intelligence_id: process.env.REACT_APP_INTELLIGENCE_1,
             number_of_mouses: selectedSmart.length
           },
           {
-            intelligence_id: process.env.REACT_APP_INTELLIGENCE_STUPID,
+            intelligence_id: process.env.REACT_APP_INTELLIGENCE_2,
             number_of_mouses: selectedStupid.length
           }
         ],

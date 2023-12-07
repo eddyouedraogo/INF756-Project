@@ -21,7 +21,7 @@ export default function MaxIntelligenceSelector() {
   };
 
   return (
-    <FormField label='Intelligence maximale'>
+    <FormField label='Intelligence 1'>
       <Multiselect
         selectedOptions={selectedOptions.map(transformOption)}
         onChange={({ detail }) => select(detail)}

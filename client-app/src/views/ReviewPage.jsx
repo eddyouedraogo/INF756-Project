@@ -66,14 +66,14 @@ export default function ReviewPage() {
                 <Badge>{selectedSmart.length + selectedStupid.length}</Badge>
               </FormField>
               <SpaceBetween size='xxl'>
-                <FormField label='Intelligence maximale'>
+                <FormField label='Intelligence 1'>
                   <SpaceBetween direction='horizontal' size='xxs'>
                     {selectedSmart.map((item) => (
                       <Button key={item}>souris {item}</Button>
                     ))}
                   </SpaceBetween>
                 </FormField>
-                <FormField label='Intelligence normale'>
+                <FormField label='Intelligence 2'>
                   <SpaceBetween direction='horizontal' size='xxs'>
                     {selectedStupid.map((item) => (
                       <Button key={item}>souris {item}</Button>

@@ -144,7 +144,8 @@ class SimulationConsumer(WebsocketConsumer):
         
         
         for mouse in mouses: 
-            if mouse.intelligence >= 7:
+            print("mouse.intelligence", mouse.intelligence)
+            if mouse.intelligence == 10:
                 self.send_info_msg(f"Assigning DFS to mouse {mouse.id}")
                 
                 visited_dfs = []
@@ -164,9 +165,8 @@ class SimulationConsumer(WebsocketConsumer):
                             objective_rules
                         ))
                 th_dfs.start()
-                th_dfs.join()
             
-            elif mouse.intelligence >= 4 : 
+            elif mouse.intelligence == 6 : 
                 self.send_info_msg(f"Assigning BFS to mouse {mouse.id}")
                 visited_bfs = []
                 queue_bfs = []
@@ -175,20 +175,20 @@ class SimulationConsumer(WebsocketConsumer):
                     target=self.bfs_intelligence,
                     args=(visited_bfs, labyrinth, lab_entrance, queue_bfs, mouse, action_rules, objective_rules))
                 th_bfs.start()
-                th_bfs.join()
             
-            elif mouse.intelligence >= 0 :
+            elif mouse.intelligence == 3 :
                 visited_low_intelligence = []
                 th_low = threading.Thread(
                     target=self.low_intelligence_mouse,
                     args=(visited_low_intelligence, labyrinth, lab_entrance, False, mouse, action_rules, objective_rules)
                     )
                 th_low.start()
-                th_low.join()
 
-            elif mouse.intelligence > 10:
+            elif mouse.intelligence == 11:
                 self.send_info_msg(f"Mouse {mouse.id} is cheating")
-                route = self.bfs_intelligence_cheating_mouse(self, labyrinth, lab_entrance, mouse, action_rules, objective_rules)
+                route = self.bfs_intelligence_cheating_mouse(labyrinth, lab_entrance)
+                
+                print("route", route)
                 th_cheating = threading.Thread(
                     target=self.handle_cheating_mouse_route,
                     args=(
@@ -198,7 +198,6 @@ class SimulationConsumer(WebsocketConsumer):
                         objective_rules
                         ))
                 th_cheating.start()
-                th_cheating.join()
 
 
 
@@ -312,29 +311,39 @@ class SimulationConsumer(WebsocketConsumer):
                 if mouse_dead:
                     return mouse_dead
 
-    def bfs_intelligence_cheating_mouse(self, labyrinth, room, action_rules, objective_rules):
+    def bfs_intelligence_cheating_mouse(self, labyrinth, room):
         queue = []
         queue.append([room])
+        print("queue", queue)
     
         visited = []
         visited.append(room.get("room_number"))
+        print("visited", visited)
 
         while queue:
             path = queue.pop(0) 
             current_room = path[-1]
+
+            print("current_room", current_room)
             if current_room.get("is_lab_exit"):
                 return path
         
 
             available_exits_ids = current_room.get("available_exits")
             available_exits = self.get_room_from_number(available_exits_ids, labyrinth)
+            print("available_exits_ids", available_exits_ids)
 
+            print("available_exits", available_exits)
             for next_room in available_exits:
+                print("next_room", next_room)
                 if next_room.get("room_number") not in visited:
                     visited.append(next_room.get("room_number"))
                     new_path = list(path)
                     new_path.append(next_room)
+
+                    print("new_path", new_path)
                     queue.append(new_path)
+                    print("queue", queue)
     
     def get_room_from_number(self, rom_numbers, labyrinth):
         rooms = []
@@ -368,8 +377,9 @@ class SimulationConsumer(WebsocketConsumer):
 
     def handle_cheating_mouse_route(self,route, mouse, action_rules, objective_rules):
         for room in route:
-            mouse_dead = self.ask_mouth_to_take_a_step(self, mouse, [], room, action_rules, objective_rules )
+            mouse_dead = self.ask_mouth_to_take_a_step(mouse, [], room, action_rules, objective_rules )
             if mouse_dead:
+                self.send_death_msg(mouse)
                 return True
         self.send_exit_found_msg(mouse)
 
