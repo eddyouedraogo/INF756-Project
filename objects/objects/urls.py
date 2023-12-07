@@ -14,15 +14,30 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
+from drf_yasg.views import get_schema_view
 from objects.views import *
+from drf_yasg import openapi
+from rest_framework import permissions
+
+
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Simulus Object",
+        default_version='v1',),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', include('routers')), Change this router to reflect the one below
     path('objective/', ObjectiveView.as_view()),
-    path('labyrinth/', LabyrinthView.as_view())
+    path('labyrinth/', LabyrinthView.as_view()),
+    path('roomObjective/', RoomObjectiveView.as_view()),
+    path("", schema_view.with_ui('swagger', cache_timeout=0),name='schema-swagger-ui')
 ]
 
 

@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Select, FormField } from '@cloudscape-design/components';
-import useFetchLabyrinth from '../../hooks/labyrinths/useLabyrinths';
+import { setLabyrinth } from '../../redux/reducers/LabyrinthReducer';
+import { fetchLabData } from '../../redux/actions/labyrithns';
 
 export default function SelectLabyrinth() {
-  const [selectedOption, setSelectedOption] = React.useState({});
+  const dispatch = useDispatch();
 
-  const { data, loading } = useFetchLabyrinth();
+  const labyrinths = useSelector((state) => state.labyrinth.list);
+  const loading = useSelector((state) => state.labyrinth.loading);
+  const selectedOption = useSelector((state) => state.labyrinth.selected);
+
+  useEffect(() => {
+    if (labyrinths.length === 0) {
+      dispatch(fetchLabData());
+    }
+  }, [dispatch]);
 
   const transformOption = (labyrinth) => {
     return {
-      label: labyrinth.name,
+      label: `${labyrinth.name} - ${labyrinth.size}`,
       value: labyrinth.id
     };
   };
@@ -19,8 +29,8 @@ export default function SelectLabyrinth() {
         selectedOption={selectedOption}
         statusType={loading}
         loadingText='Loading labyrinths'
-        onChange={({ detail }) => setSelectedOption(detail.selectedOption)}
-        options={data.map(transformOption)}
+        onChange={({ detail }) => dispatch(setLabyrinth(detail.selectedOption))}
+        options={labyrinths.map(transformOption)}
       />
     </FormField>
   );

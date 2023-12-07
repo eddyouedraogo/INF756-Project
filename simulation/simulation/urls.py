@@ -14,9 +14,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# from django.conf.urls import *
 from django.contrib import admin
 from django.urls import path
+from drf_yasg.views import get_schema_view
+from rest_framework_swagger.views import get_swagger_view
 from .views import *
+from drf_yasg import openapi
+from rest_framework import permissions
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Simulus Simulation",
+        default_version='v1',),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +37,7 @@ urlpatterns = [
     path('ruleItem/', RuleItemView.as_view()),
     path('actionRule/', ActionRuleItemtView.as_view()),
     path('objectiveRule/', ObjectiveRuleItemtView.as_view()),
+    path('simulation/', SimulationView.as_view()),
+    path('ruleSetItems/', RuleSetAndItemView.as_view()),
+    path("", schema_view.with_ui('swagger', cache_timeout=0),name='schema-swagger-ui'),
 ]

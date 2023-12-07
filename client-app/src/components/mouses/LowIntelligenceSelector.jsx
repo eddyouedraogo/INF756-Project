@@ -21,7 +21,7 @@ export default function LowIntelligenceSelector() {
   };
 
   return (
-    <FormField label='Intelligence normale'>
+    <FormField label='Intelligence 2'>
       <Multiselect
         selectedOptions={selectedOptions.map(transformOption)}
         onChange={({ detail }) => select(detail)}

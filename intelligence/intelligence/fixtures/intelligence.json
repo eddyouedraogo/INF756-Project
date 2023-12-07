@@ -4,7 +4,7 @@
         "pk": 1,
         "fields" : {
             "label": "Très Intelligente",
-            "min_level": 8,
+            "min_level": 7,
             "max_level": 10
         }
     },
@@ -13,8 +13,8 @@
         "pk": 2,
         "fields" : {
             "label": "Moyennement Intelligente",
-            "min_level": 5,
-            "max_level": 7
+            "min_level": 4,
+            "max_level": 6
         }
     },
     {
@@ -23,7 +23,7 @@
         "fields" : {
             "label": "Peu Intelligente",
             "min_level": 0,
-            "max_level": 4
+            "max_level": 3
         }
     },
     {

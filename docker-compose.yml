@@ -11,7 +11,7 @@ services:
     ports:
       - '5432:5432'
     volumes: 
-      - ./postgres-data:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
   
   pgadmin:
     image: dpage/pgadmin4
@@ -24,6 +24,15 @@ services:
       PGADMIN_DEFAULT_PASSWORD: strong-password
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server
+    volumes:
+      - redis:/data
 
   intelligence:
     image: intelligence
@@ -59,9 +68,12 @@ services:
       - "8080:8080"
     depends_on:
       - db
+      - redis
     restart: on-failure
   
 volumes:
   db:
   local_pgdata:
   pgadmin-data:
+  redis:
+    driver: local

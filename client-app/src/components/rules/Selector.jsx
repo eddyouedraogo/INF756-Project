@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Cards, FormField, Box, SpaceBetween, Badge } from '@cloudscape-design/components';
 import ItemDescription from './ItemDescription';
 import { setRule } from '../../redux/reducers/RuleReducer';
-import { fetchData } from '../../redux/actions/rules';
+import { fetchRuleData } from '../../redux/actions/rules';
 
 export default function Selector() {
   const rules = useSelector((state) => state.rule.list);
@@ -12,7 +12,9 @@ export default function Selector() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchData());
+    if (rules.length === 0) {
+      dispatch(fetchRuleData());
+    }
   }, [dispatch]);
 
   const transformData = (rule) => {
@@ -20,7 +22,7 @@ export default function Selector() {
     return {
       id,
       name,
-      description: `<ul>${items.map((item) => `<li>${item.name}</li>`).join('')}</ul>`
+      description: `<ul>${items.map((item) => `<li>${item.description}</li>`).join('')}</ul>`
     };
   };
 
